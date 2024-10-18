@@ -32,8 +32,8 @@ jobs:
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/git__increment-tag@dev
         with:
           release_type: ${{ env.RELEASE_TYPE }}
-    needs:
-      - run-tests
+#    needs:
+#      - run-tests
 
   publish-to-pypi:
     #if: False
@@ -54,7 +54,6 @@ jobs:
       - increment-tag
 
   publish-to-aws-ecr:
-    if: False
     name: "Publish to: AWS ECR"
     runs-on: ubuntu-latest
     steps:
@@ -84,5 +83,5 @@ jobs:
           AWS_ACCESS_KEY_ID__654654216424    : ${{ secrets.AWS_ACCESS_KEY_ID__654654216424     }}
           AWS_SECRET_ACCESS_KEY__654654216424: ${{ secrets.AWS_SECRET_ACCESS_KEY__654654216424 }}
           AWS_DEFAULT_REGION__654654216424   : ${{ secrets.AWS_DEFAULT_REGION__654654216424    }}
-#    needs:
-#      - publish-to-aws-ecr
+    needs:
+      - publish-to-aws-ecr
