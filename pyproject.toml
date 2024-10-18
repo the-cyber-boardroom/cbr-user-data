@@ -9,8 +9,10 @@ homepage    = "https://github.com/the-cyber-boardroom/cbr-user-data"
 repository  = "https://github.com/the-cyber-boardroom/cbr-user-data"
 
 [tool.poetry.dependencies]
-python          = "^3.7"
-osbot-utils     = "*"
+python          = "^3.11"
+osbot-fast-api  = "*"
+mangum          = "*"
+httpx           = "*"
 
 
 [build-system]
