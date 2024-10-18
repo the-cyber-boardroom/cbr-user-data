@@ -70,6 +70,23 @@ urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >
 crt = ["awscrt (==0.22.0)"]
 
 [[package]]
+name = "cbr-shared"
+version = "0.3.8"
+description = "CBR - Shared"
+optional = false
+python-versions = "<4.0,>=3.11"
+files = [
+    {file = "cbr_shared-0.3.8-py3-none-any.whl", hash = "sha256:1a5eafabbb62da28e29634abeb0cacb803f041fd0d8a40eb3423ad587c36ca98"},
+    {file = "cbr_shared-0.3.8.tar.gz", hash = "sha256:5251920a68378eed16b626e789c40b8e56d00fbaf90a530e5e540fd4d10db93a"},
+]
+
+[package.dependencies]
+osbot-aws = "*"
+osbot-fast-api = "*"
+osbot-local-stack = "*"
+osbot-utils = "*"
+
+[[package]]
 name = "certifi"
 version = "2024.8.30"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -402,6 +419,20 @@ osbot-utils = "*"
 requests = "*"
 typer = "*"
 uvicorn = "*"
+
+[[package]]
+name = "osbot-local-stack"
+version = "0.3.0"
+description = "OWASP Security Bot - LLM"
+optional = false
+python-versions = "<4.0,>=3.11"
+files = [
+    {file = "osbot_local_stack-0.3.0-py3-none-any.whl", hash = "sha256:609217b3a9e371700af5b97d68e2087783f6471717b26fb152e1898040c9ed93"},
+    {file = "osbot_local_stack-0.3.0.tar.gz", hash = "sha256:956fd1e8f2e80301ef29721d654830e98020919c7ce64c744907e647770d6c60"},
+]
+
+[package.dependencies]
+osbot-aws = "*"
 
 [[package]]
 name = "osbot-utils"
@@ -738,4 +769,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e9dbc8d436ae8688db87070866790d619fb8647a2d89ff8839b97dd0a634ae2e"
+content-hash = "69e762da2464f9434dcce90d62b206d60b638f0727f6b957effff50e67be3166"
