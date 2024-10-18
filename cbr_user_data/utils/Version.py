@@ -19,3 +19,5 @@ class Version(Type_Safe):
         return value.strip()
 
 version = Version().value()
+
+version__cbr_user_data = version

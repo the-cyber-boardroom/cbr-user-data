@@ -1,6 +1,6 @@
-from unittest import TestCase
-from deploy.lambdas.Deploy_Lambda__User_Data import Deploy_Lambda__User_Data
-from tests.unit.utils.test_Version           import version__cbr_user_data
+from unittest                                   import TestCase
+from cbr_user_data.utils.Version                import version__cbr_user_data
+from deploy.lambdas.Deploy_Lambda__User_Data    import Deploy_Lambda__User_Data
 
 
 class test_Deploy_Lambda__OSBot_LLMs(TestCase):

@@ -2,8 +2,7 @@ from osbot_utils.utils.Env                  import get_env, load_dotenv
 from osbot_aws.AWS_Config                   import aws_config
 from osbot_utils.base_classes.Type_Safe     import Type_Safe
 from osbot_aws.deploy.Deploy_Lambda         import Deploy_Lambda
-
-from tests.unit.utils.test_Version          import version__cbr_user_data
+from cbr_user_data.utils.Version            import version__cbr_user_data
 
 
 class Deploy_Lambda__User_Data(Type_Safe):

@@ -1,6 +1,5 @@
 from osbot_fast_api.api.Fast_API_Routes import Fast_API_Routes
-
-from tests.unit.utils.test_Version import version__cbr_user_data
+from cbr_user_data.utils.Version        import version__cbr_user_data
 
 
 class Routes__Info(Fast_API_Routes):

@@ -20,5 +20,3 @@ class test_Version(TestCase):
 
     def test_value(self):
         assert self.version.value() == version
-
-version__cbr_user_data = version
