@@ -1,8 +1,8 @@
 services:
-  cbr_xyz:
+  cbr_user_data:
     build:
       context: ../../..
-      dockerfile: ./deploy/docker/cbr_xyz__from_pip/Dockerfile
+      dockerfile: ./deploy/docker/cbr_user_data/Dockerfile
     platform: linux/amd64
-    container_name: cbr_xyz__from_pip
+    container_name: cbr_user_data
     tty: true

@@ -7,8 +7,8 @@ from osbot_aws.deploy.Deploy_Lambda         import Deploy_Lambda
 from osbot_llms.utils.Version import version__osbot_llms
 
 
-class Deploy_Lambda__Cbr_Xyz(Type_Safe):
-    lambda_name : str = 'cbr_xyz'
+class Deploy_Lambda__Cbr_User_Data(Type_Safe):
+    lambda_name : str = 'cbr_user_data'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     print("****   Deploy_Lambda__OSBot_LLMs                ****")
     print("****************************************************")
     print()
-    with Deploy_Lambda__Cbr_Xyz() as _:
+    with Deploy_Lambda__Cbr_User_Data() as _:
         print(f"... deploying lambda function: {_.lambda_name}")
         _.deploy()
         response = _.invoke()
