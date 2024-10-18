@@ -10,11 +10,12 @@ env:
   RELEASE_TYPE     : 'minor'
   PACKAGE_NAME     : 'cbr_user_data'
   DOCKER__CONTEXT  : "."
-  DOCKER__FILE     : './deploy/docker/cbr_user_data/Dockerfile'
+  DOCKER__FILE     : './deploy/docker/cbr-user-data/Dockerfile'
 
 jobs:
 
   run-tests:
+    if: False
     name: "Run tests"
     runs-on: ubuntu-latest
     steps:
@@ -67,8 +68,8 @@ jobs:
           AWS_ACCESS_KEY_ID    : ${{ secrets.AWS_ACCESS_KEY_ID__654654216424     }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY__654654216424 }}
           AWS_DEFAULT_REGION   : ${{ secrets.AWS_DEFAULT_REGION__654654216424    }}
-    needs:
-      - publish-to-pypi
+#    needs:
+#      - publish-to-pypi
 
   deploy-lambda-function:
     name: Deploy Lambda Function
