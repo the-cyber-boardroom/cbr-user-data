@@ -1,14 +1,14 @@
 ---
-title: CBR XYZ
+title: CBR User Data
 ---
 
-# cbr-xyz
-Repo for XYZ (replace with name of project). 
+# cbr-user-data
+Repo for User Data (replace with name of project). 
 
 This is the template for the other projects and builds up the main CI/CD pipeline
 
 
 ## Repo details
 
-![Current Release](https://img.shields.io/badge/release-v0.8.1-blue)
+![Current Release](https://img.shields.io/badge/release-v0.1.1-blue)
 

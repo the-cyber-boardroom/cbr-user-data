@@ -1,16 +1,18 @@
 [tool.poetry]
-name        = "cbr_xyz"
-version     = "v0.8.1"
-description = "CBR - XYZ"
+name        = "cbr_user_data"
+version     = "v0.1.1"
+description = "CBR - User Data"
 authors     = ["Dinis Cruz <dinis.cruz@owasp.org>"]
 license     = "MIT"
 readme      = "README.md"
-homepage    = "https://github.com/the-cyber-boardroom/cbr-xyz"
-repository  = "https://github.com/the-cyber-boardroom/cbr-xyz"
+homepage    = "https://github.com/the-cyber-boardroom/cbr-user-data"
+repository  = "https://github.com/the-cyber-boardroom/cbr-user-data"
 
 [tool.poetry.dependencies]
-python          = "^3.7"
-osbot-utils     = "*"
+python          = "^3.11"
+osbot-fast-api  = "*"
+mangum          = "*"
+httpx           = "*"
 
 
 [build-system]
