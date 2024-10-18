@@ -1,13 +1,12 @@
-from osbot_utils.utils.Dev                  import pprint
 from osbot_utils.utils.Env                  import get_env, load_dotenv
 from osbot_aws.AWS_Config                   import aws_config
 from osbot_utils.base_classes.Type_Safe     import Type_Safe
 from osbot_aws.deploy.Deploy_Lambda         import Deploy_Lambda
 
-from osbot_llms.utils.Version import version__osbot_llms
+from tests.unit.utils.test_Version          import version__cbr_user_data
 
 
-class Deploy_Lambda__Cbr_User_Data(Type_Safe):
+class Deploy_Lambda__User_Data(Type_Safe):
     lambda_name : str = 'cbr_user_data'
 
     def __init__(self, **kwargs):
@@ -42,7 +41,7 @@ class Deploy_Lambda__Cbr_User_Data(Type_Safe):
         account_id  = aws_config.account_id()
         region_name = aws_config.region_name()
         image_name  = self.lambda_name
-        image_tag   = version__osbot_llms
+        image_tag   = version__cbr_user_data
         return f'{account_id}.dkr.ecr.{region_name}.amazonaws.com/{image_name}:{image_tag}'
 
     def setup_aws_credentials(self):
@@ -58,7 +57,7 @@ if __name__ == '__main__':
     print("****   Deploy_Lambda__OSBot_LLMs                ****")
     print("****************************************************")
     print()
-    with Deploy_Lambda__Cbr_User_Data() as _:
+    with Deploy_Lambda__User_Data() as _:
         print(f"... deploying lambda function: {_.lambda_name}")
         _.deploy()
         response = _.invoke()
