@@ -14,35 +14,6 @@ env:
 
 jobs:
 
-  run-tests-on-localstack-image:
-    name: "Run tests"
-    runs-on: ubuntu-latest
-    services:
-      localstack:
-        image: localstack/localstack:latest
-        ports:
-          - 4566:4566
-        options: >-
-          --env SERVICES=s3,lambda,iam
-          --env AWS_ACCESS_KEY_ID=localstack__key
-          --env AWS_SECRET_ACCESS_KEY=localstack__secret
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Python 3.x
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
-      - name: Install dependencies (Code)
-        run: |
-          pip install -r requirements.txt
-          pip install -r requirements-test.txt
-          pip install -e .
-      - name: Run tests with pytest (with coverage)
-        run: |
-          pytest -v -s --durations=0 tests
-
   run-tests:
     name: "Run tests"
     runs-on: ubuntu-latest
