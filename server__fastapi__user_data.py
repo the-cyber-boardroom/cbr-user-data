@@ -1,5 +1,5 @@
-from cbr_user_data.fast_api.Fast_API__User_Data import Fast_API__User_Data
+from cbr_user_data.fast_api.User_Data__Fast_API import User_Data__Fast_API
 
-user_data_fast_api = Fast_API__User_Data().setup()
+user_data_fast_api = User_Data__Fast_API().setup()
 app          = user_data_fast_api.app()
 
