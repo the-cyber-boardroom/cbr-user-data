@@ -1,4 +1,6 @@
 # for testing
 pytest
-pytest-cov
-coveralls
+
+# for coverage (currently not used in CI Pipeline)
+#pytest-cov
+#coveralls
