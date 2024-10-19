@@ -33,11 +33,11 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-          
+
       - name: Install dependencies (Code)
         run: |
           pip install -r requirements.txt
-          pip install -r requirements-text.txt
+          pip install -r requirements-test.txt
           pip install -e .
       - name: Run tests with pytest (with coverage)
         run: |
