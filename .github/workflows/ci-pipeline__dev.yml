@@ -29,6 +29,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          
       - name: Install dependencies (Code)
         run: |
           pip install -r requirements.txt
@@ -39,7 +44,6 @@ jobs:
           pytest -v -s --durations=0 tests
 
   run-tests:
-    if: False
     name: "Run tests"
     runs-on: ubuntu-latest
     steps:
