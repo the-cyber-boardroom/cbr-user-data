@@ -10,7 +10,7 @@ class Routes__Chats(Fast_API_Routes):
     def db_user(self, request: Request):
         user_details = self.user_details(request)
         if user_details:
-            user_id = user_details.get('data', {}).get('user_id')
+            user_id = user_details.get('data', {}).get('sub')
             db_user = self.db_users.db_user(user_id)
             return db_user
 
@@ -36,6 +36,7 @@ class Routes__Chats(Fast_API_Routes):
         return {}
 
     def chat_add(self, request: Request, chat_path):
+
         db_user = self.db_user(request)
         if db_user:
             return db_user.user_past_chats__add_chat(chat_path)
