@@ -3,8 +3,8 @@ from cbr_shared.cbr_backend.user_session.CBR__Session_Auth  import cbr_session_a
 from cbr_shared.cbr_backend.users.DB_Users                  import DB_Users
 from osbot_fast_api.api.Fast_API_Routes                     import Fast_API_Routes
 
-class Routes__User_Data(Fast_API_Routes):
-    tag      : str = 'user-data'
+class Routes__Chats(Fast_API_Routes):
+    tag      : str = 'chats'
     db_users : DB_Users
 
     def db_user(self, request: Request):
