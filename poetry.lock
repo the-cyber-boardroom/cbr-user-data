@@ -71,13 +71,13 @@ crt = ["awscrt (==0.22.0)"]
 
 [[package]]
 name = "cbr-shared"
-version = "0.3.8"
+version = "0.3.9"
 description = "CBR - Shared"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_shared-0.3.8-py3-none-any.whl", hash = "sha256:1a5eafabbb62da28e29634abeb0cacb803f041fd0d8a40eb3423ad587c36ca98"},
-    {file = "cbr_shared-0.3.8.tar.gz", hash = "sha256:5251920a68378eed16b626e789c40b8e56d00fbaf90a530e5e540fd4d10db93a"},
+    {file = "cbr_shared-0.3.9-py3-none-any.whl", hash = "sha256:37f95ce269bd54970dc7b8c24c953947b4366d44e2ac41b0549f2e7583481732"},
+    {file = "cbr_shared-0.3.9.tar.gz", hash = "sha256:272bc1adc2d9136547371c838d9b68ef89760bce7b9f8eeda675d701470a0629"},
 ]
 
 [package.dependencies]

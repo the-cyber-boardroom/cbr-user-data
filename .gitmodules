@@ -1,0 +1,3 @@
+[submodule "modules/cbr-shared"]
+	path = modules/cbr-shared
+	url = git@github.com:the-cyber-boardroom/cbr-shared.git

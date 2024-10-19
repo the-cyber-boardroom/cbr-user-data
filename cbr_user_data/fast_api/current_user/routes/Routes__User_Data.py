@@ -1,7 +1,7 @@
-from fastapi                                        import Depends, Request, Security
-from cbr_athena.athena__fastapi.CBR__Session_Auth   import cbr_session_auth, api_key_header
-from cbr_shared.cbr_backend.users.DB_Users          import DB_Users
-from osbot_fast_api.api.Fast_API_Routes             import Fast_API_Routes
+from fastapi                                                import Request
+from cbr_shared.cbr_backend.user_session.CBR__Session_Auth  import cbr_session_auth
+from cbr_shared.cbr_backend.users.DB_Users                  import DB_Users
+from osbot_fast_api.api.Fast_API_Routes                     import Fast_API_Routes
 
 class Routes__User_Data(Fast_API_Routes):
     tag      : str = 'user-data'
