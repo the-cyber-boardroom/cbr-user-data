@@ -1,3 +1,6 @@
 [submodule "modules/cbr-shared"]
 	path = modules/cbr-shared
 	url = git@github.com:the-cyber-boardroom/cbr-shared.git
+[submodule "modules/OSBot-AWS"]
+	path = modules/OSBot-AWS
+	url = git@github.com:owasp-sbot/OSBot-AWS.git
