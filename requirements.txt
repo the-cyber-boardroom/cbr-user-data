@@ -1,0 +1,12 @@
+# CBR packages
+cbr-shared
+
+# OSBot packages
+osbot-aws
+osbot-fast-api
+
+# for FastAPI
+fastapi
+mangum
+uvicorn
+httpx

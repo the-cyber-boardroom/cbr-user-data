@@ -7,12 +7,23 @@ runs:
     - name: Start Local Stack
       uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/docker__local-stack@dev
 
-    - name: Install Dependencies
-      uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
-      with:
-        pip_install: '-r requirements-test.txt'
+#    - name: Install Dependencies
+#      uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
+#      with:
+#        pip_install: '-r requirements-test.txt'
+#
+#    - name: Run Unit Tests
+#      uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
+#      with:
+#        test_target: 'tests'
 
-    - name: Run Unit Tests
-      uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
-      with:
-        test_target: 'tests'
+    - name: Install dependencies (Code)
+      shell: bash
+      run: |
+        pip install -r requirements.txt
+        pip install -r requirements-text.txt
+        pip install -e .
+    - name: Run tests with pytest (with coverage)
+      shell: bash
+      run: |
+        pytest -v -s --durations=0 tests
