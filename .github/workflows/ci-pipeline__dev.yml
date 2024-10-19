@@ -29,15 +29,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Dependencies
+      - name: Install Dependencies (Test)
         uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__install@dev
         with:
           pip_install: '-r requirements-test.txt'
 
-      - name: Run Unit Tests
-        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
-        with:
-          test_target: 'tests'
+      - name: Install dependencies (Code)
+        run: |
+          RUN pip install mangum uvicorn httpx fastapi
+          RUN pip install osbot-aws osbot-fast-api 
+          RUN pip install cbr-shared
+          pip install -e .
+      - name: Run tests with pytest (with coverage)
+        run: |
+          pytest -v -s --durations=0 tests
+
+#      - name: Run Unit Tests
+#        uses: owasp-sbot/OSBot-GitHub-Actions/.github/actions/poetry__run-unit-tests@dev
+#        with:
+#          test_target: 'tests'
 
   run-tests:
     if: False
