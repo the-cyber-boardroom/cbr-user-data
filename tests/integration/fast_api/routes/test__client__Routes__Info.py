@@ -1,17 +1,16 @@
-from unittest                                                     import TestCase
-
-from starlette.testclient import TestClient
-
-from cbr_user_data.fast_api.routes.Routes__Info       import Routes__Info
-from cbr_user_data.utils.Version import version__cbr_user_data
-from tests.integration.user_data__objs_for_tests import fast_api__local_stack, fast_api__user_data__client
+from unittest                                           import TestCase
+from starlette.testclient                               import TestClient
+from cbr_user_data.fast_api.routes.Routes__Info         import Routes__Info
+from cbr_user_data.utils.Version                        import version__cbr_user_data
+from tests.integration.user_data__objs_for_tests        import fast_api__local_stack, fast_api__user_data__client
 
 
-class test__client__Routes__User_Data(TestCase):
+class test__client__Routes__Info(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
         cls.client          = fast_api__user_data__client
+        cls.routes_info     = Routes__Info()                    # to find this test via usage's mappings
 
     def test_setUpClass(self):
         assert type(self.client) is TestClient

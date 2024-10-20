@@ -15,7 +15,6 @@ with capture_duration() as duration:
     fast_api__local_stack       = Local_Stack().activate()
     fast_api__user_data         = User_Data__Fast_API().setup()
     fast_api__user_data__app    = fast_api__user_data.app()
-
     fast_api__user_data__client = fast_api__user_data.client()
     assert fast_api__local_stack.is_local_stack_configured_and_available() is True
 

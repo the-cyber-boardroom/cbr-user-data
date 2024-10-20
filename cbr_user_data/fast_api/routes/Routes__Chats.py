@@ -1,7 +1,11 @@
 from fastapi                                                import Request
-from cbr_shared.cbr_backend.user_session.CBR__Session_Auth  import cbr_session_auth
+from cbr_shared.cbr_backend.session.CBR__Session_Auth       import cbr_session_auth
 from cbr_shared.cbr_backend.users.DB_Users                  import DB_Users
 from osbot_fast_api.api.Fast_API_Routes                     import Fast_API_Routes
+
+
+def user_profile(self, db_user):
+    return db_user.user_profile()
 
 class Routes__Chats(Fast_API_Routes):
     tag      : str = 'chats'
@@ -14,8 +18,8 @@ class Routes__Chats(Fast_API_Routes):
             db_user = self.db_users.db_user(user_id)
             return db_user
 
-    def user_details(self, request: Request):
-        return cbr_session_auth.session_data__from_cookie(request)
+    # def user_details(self, request: Request):
+    #     return cbr_session_auth.session_data__from_cookie(request)
 
     def user_profile(self, request: Request):
         db_user = self.db_user(request)
@@ -50,7 +54,7 @@ class Routes__Chats(Fast_API_Routes):
 
 
     def setup_routes(self):
-        self.add_route_get(self.user_details)
+        #self.add_route_get(self.user_details)
         self.add_route_get(self.user_profile)
         self.add_route_get(self.chat_add    )
         self.add_route_get(self.chats       )
