@@ -1,19 +1,14 @@
-from unittest                                           import TestCase
-from starlette.testclient                                import TestClient
-from cbr_shared.cbr_backend.session.DB_Session           import DB_Session
-from cbr_shared.cbr_backend.session.DB_Sessions          import DB_Sessions
-from cbr_shared.cbr_backend.users.DB_Users import DB_Users
-from cbr_user_data.fast_api.routes.Routes__User          import Routes__User
-from osbot_utils.utils.Dev                               import pprint
-from tests.integration.cbr_shared__for_integration_tests import cbr_shared__assert_local_stack
-from tests.integration.user_data__objs_for_tests         import fast_api__local_stack, fast_api__user_data__client
+from unittest                                       import TestCase
+from starlette.testclient                           import (TestClient)
+from cbr_user_data.fast_api.routes.Routes__User     import Routes__User
+from tests.integration.user_data__objs_for_tests    import fast_api__user_data__client, user_data__assert_local_stack
 
 
 class test__client__Routes__User(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cbr_shared__assert_local_stack()
+        user_data__assert_local_stack()
         cls.client          = fast_api__user_data__client
         cls.routes_user     = Routes__User()                        # to find this test via usage's mappings
 

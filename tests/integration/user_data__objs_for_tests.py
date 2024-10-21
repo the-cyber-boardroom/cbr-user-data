@@ -24,3 +24,6 @@ if in_github_action():
     assert duration.seconds < 5         # give it more time when running in github actions
 else:
     assert duration.seconds < 1         # make sure the setup time is less than 1 second
+
+def user_data__assert_local_stack():
+    assert fast_api__local_stack.is_local_stack_configured_and_available() is True
