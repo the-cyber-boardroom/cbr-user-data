@@ -1,7 +1,6 @@
-from starlette.requests import Request
-
+from starlette.requests                                   import Request
 from cbr_shared.cbr_backend.users.decorators.with_db_user import with_db_user
-from osbot_fast_api.api.Fast_API_Routes              import Fast_API_Routes
+from osbot_fast_api.api.Fast_API_Routes                   import Fast_API_Routes
 
 
 class Routes__User(Fast_API_Routes):

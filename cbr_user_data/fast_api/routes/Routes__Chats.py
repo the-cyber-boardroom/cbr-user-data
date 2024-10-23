@@ -1,7 +1,7 @@
-from fastapi                                   import Request
-from cbr_shared.cbr_backend.users.S3_DB__Users import S3_DB__Users
+from fastapi                                              import Request
+from cbr_shared.cbr_backend.users.S3_DB__Users            import S3_DB__Users
 from cbr_shared.cbr_backend.users.decorators.with_db_user import with_db_user
-from osbot_fast_api.api.Fast_API_Routes        import Fast_API_Routes
+from osbot_fast_api.api.Fast_API_Routes                   import Fast_API_Routes
 
 
 def user_profile(self, db_user):
