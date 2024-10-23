@@ -4,7 +4,6 @@ from cbr_user_data.fast_api.routes.Routes__Info         import Routes__Info
 from cbr_user_data.fast_api.routes.Routes__Session      import Routes__Session
 from cbr_user_data.fast_api.routes.Routes__User         import Routes__User
 
-
 class User_Data__Fast_API(Fast_API):
     base_path  : str  = '/user-data'
     enable_cors: bool = True

@@ -7,7 +7,7 @@ on:
 
 env:
   GIT__BRANCH      : 'main'
-  RELEASE_TYPE     : 'minor'
+  RELEASE_TYPE     : 'major'
   PACKAGE_NAME     : 'cbr_user_data'
   DOCKER__CONTEXT  : "."
   DOCKER__FILE     : './deploy/docker/cbr-user-data/Dockerfile'
