@@ -19,7 +19,10 @@ class test__client__Routes__User(TestCase):
     def test__user__profile(self):
         response = self.client.get("/user/user-profile")
         assert response.status_code == 200                  # BUG this should be 401
-        assert response.json() == {"error":"User not authenticated"}
+        assert response.json() == {'data'   : None  ,
+                                   'error'  : None  ,
+                                   'message': 'Session not found from the current request data',
+                                   'status' : 'error'}
         # db_users = DB_Users()
         # pprint(db_users.db_users())
         # db_sessions = DB_Sessions()

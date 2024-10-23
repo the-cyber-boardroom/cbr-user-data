@@ -1,7 +1,7 @@
-from fastapi                                                import Request
-from cbr_shared.cbr_backend.session.CBR__Session_Auth       import cbr_session_auth
-from cbr_shared.cbr_backend.users.DB_Users                  import DB_Users
-from osbot_fast_api.api.Fast_API_Routes                     import Fast_API_Routes
+from fastapi                                   import Request
+from cbr_shared.cbr_backend.users.S3_DB__Users import S3_DB__Users
+from cbr_shared.cbr_backend.users.decorators.with_db_user import with_db_user
+from osbot_fast_api.api.Fast_API_Routes        import Fast_API_Routes
 
 
 def user_profile(self, db_user):
@@ -9,10 +9,12 @@ def user_profile(self, db_user):
 
 class Routes__Chats(Fast_API_Routes):
     tag      : str = 'chats'
-    db_users : DB_Users
+    db_users : S3_DB__Users
 
+    @with_db_user
     def db_user(self, request: Request):
-        user_details = self.user_details(request)
+        db_user = request.state.db_user
+        user_details = db_user.user_details(request)
         if user_details:
             user_id = user_details.get('data', {}).get('sub')
             db_user = self.db_users.db_user(user_id)
