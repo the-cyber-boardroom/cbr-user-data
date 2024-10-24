@@ -15,26 +15,6 @@ class Routes__Chats(Fast_API_Routes):
     def db_user(self, request: Request):
         db_user = request.state.db_user
         return db_user
-        # user_details = db_user.user_data(request)
-        # if user_details:
-        #     user_id = user_details.get('data', {}).get('sub')
-        #     db_user = self.db_users.db_user(user_id)
-        #     return db_user
-
-    # def user_details(self, request: Request):
-    #     return cbr_session_auth.session_data__from_cookie(request)
-
-    def user_data(self, request: Request):
-        db_user = self.db_user(request)
-        if db_user:
-            return db_user.user_data()
-        return {}
-
-    def user_profile(self, request: Request):
-        db_user = self.db_user(request)
-        if db_user:
-            return db_user.user_profile()
-        return {}
 
     def chats(self, request: Request):
         db_user = self.db_user(request)
@@ -63,9 +43,6 @@ class Routes__Chats(Fast_API_Routes):
 
 
     def setup_routes(self):
-        #self.add_route_get(self.user_details)
-        self.add_route_get(self.user_data   )
-        self.add_route_get(self.user_profile)
         self.add_route_get(self.chat_add    )
         self.add_route_get(self.chats       )
         self.add_route_get(self.chats_table )
