@@ -4,7 +4,7 @@ from cbr_shared.cbr_backend.session.decorators.with_db_session  import with_db_s
 from cbr_shared.cbr_backend.users.S3_DB__Users                  import S3_DB__Users
 from osbot_fast_api.api.Fast_API_Routes                         import Fast_API_Routes
 
-class Routes__Session(Fast_API_Routes):
+class Routes__User__Session(Fast_API_Routes):
     tag     : str = 'session'
     db_users: S3_DB__Users
 

@@ -17,6 +17,6 @@ class Routes__User(Fast_API_Routes):
         return db_user.user_profile()
 
     def setup_routes(self):
-        self.add_route_get(self.user_data)
+        self.add_route_get(self.user_data   )
         self.add_route_get(self.user_profile)
         return self

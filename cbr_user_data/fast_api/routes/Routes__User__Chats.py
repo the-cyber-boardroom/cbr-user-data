@@ -3,11 +3,7 @@ from cbr_shared.cbr_backend.users.S3_DB__Users            import S3_DB__Users
 from cbr_shared.cbr_backend.users.decorators.with_db_user import with_db_user
 from osbot_fast_api.api.Fast_API_Routes                   import Fast_API_Routes
 
-
-def user_profile(self, db_user):
-    return db_user.user_profile()
-
-class Routes__Chats(Fast_API_Routes):
+class Routes__User__Chats(Fast_API_Routes):
     tag      : str = 'chats'
     db_users : S3_DB__Users
 
@@ -43,8 +39,8 @@ class Routes__Chats(Fast_API_Routes):
 
 
     def setup_routes(self):
-        self.add_route_get(self.chat_add    )
-        self.add_route_get(self.chats       )
-        self.add_route_get(self.chats_table )
-        self.add_route_get(self.chats_clear )
+        self.add_route_post  (self.chat_add    )
+        self.add_route_get   (self.chats       )
+        self.add_route_get   (self.chats_table )
+        self.add_route_delete(self.chats_clear )
 
