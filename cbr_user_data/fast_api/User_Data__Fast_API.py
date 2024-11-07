@@ -1,7 +1,9 @@
+
 from osbot_fast_api.api.Fast_API                          import Fast_API
 from cbr_user_data.fast_api.routes.Routes__Info           import Routes__Info
 from cbr_user_data.fast_api.routes.Routes__User           import Routes__User
 from cbr_user_data.fast_api.routes.Routes__User__Chats    import Routes__User__Chats
+from cbr_user_data.fast_api.routes.Routes__User__Files    import Routes__User__Files
 from cbr_user_data.fast_api.routes.Routes__User__Session  import Routes__User__Session
 from cbr_user_data.fast_api.routes.Routes__User__Personas import Routes__User__Personas
 
@@ -13,5 +15,6 @@ class User_Data__Fast_API(Fast_API):
         self.add_routes(Routes__Info   )
         self.add_routes(Routes__User   )
         self.add_routes(Routes__User__Chats   )
+        self.add_routes(Routes__User__Files   )
         self.add_routes(Routes__User__Session )
         self.add_routes(Routes__User__Personas)
