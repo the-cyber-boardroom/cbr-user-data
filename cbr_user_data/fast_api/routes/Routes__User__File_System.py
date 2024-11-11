@@ -3,7 +3,9 @@ from starlette.requests                                         import Request
 from starlette.responses                                        import PlainTextResponse
 from cbr_shared.cbr_backend.files.User__File__System            import User__File__System
 from cbr_shared.cbr_backend.users.decorators.with_db_user       import with_db_user
+from cbr_user_data.fast_api.models.Model__API__User__Add_Folder import Model__API__User__Add_Folder
 from cbr_user_data.fast_api.models.Model__API__User__Add_File   import Model__API__User__Add_File, SWAGGER_EXAMPLE__Model__API__User__Add_File
+from cbr_user_data.fast_api.models.Model__API__User__Add_Folder import SWAGGER_EXAMPLE__Model__API__User__Add_Folder
 from osbot_fast_api.api.Fast_API_Routes                         import Fast_API_Routes
 from osbot_utils.utils.Status                                   import status_ok, status_error
 
@@ -25,9 +27,9 @@ class Routes__User__File_System(Fast_API_Routes):
         return status_ok(message='File added', data = dict(file_id=user_file.file_id))
 
     @with_db_user
-    def add_folder(self, request: Request, folder_name: str, parent_folder_id: str = None):
+    def add_folder(self, request: Request, model_add_folder: Model__API__User__Add_Folder = SWAGGER_EXAMPLE__Model__API__User__Add_Folder):
         file_system = self.file_system(request)
-        folder      = file_system.add_folder(parent_folder_id=parent_folder_id, folder_name=folder_name)
+        folder      = file_system.add_folder(parent_folder_id=model_add_folder.parent_folder_id, folder_name=model_add_folder.folder_name)
         return status_ok(message='folder created', data=dict(folder_id=folder.folder_id))
 
     @with_db_user
