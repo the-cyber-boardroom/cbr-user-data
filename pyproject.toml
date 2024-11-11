@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "cbr_user_data"
-version     = "v0.2.20"
+version     = "v0.2.21"
 description = "CBR - User Data"
 authors     = ["Dinis Cruz <dinis.cruz@owasp.org>"]
 license     = "MIT"
