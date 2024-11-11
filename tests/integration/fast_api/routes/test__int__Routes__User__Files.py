@@ -3,6 +3,7 @@ from cbr_shared.cbr_backend.folders.Temp_Folders_Structure                  impo
 from cbr_shared.cbr_backend.folders.models.Model__User__Folders__Structure  import Model__User__Folders__Structure
 from cbr_shared.cbr_backend.users.Temp_User_Request                         import Temp_User_Request
 from cbr_user_data.fast_api.models.Model__API__User__Add_File               import Model__API__User__Add_File
+from cbr_user_data.fast_api.models.Model__API__User__Add_Folder             import Model__API__User__Add_Folder
 from cbr_user_data.fast_api.routes.Routes__User__File_System                import Routes__User__File_System
 from osbot_utils.utils.Misc                                                 import is_guid
 from osbot_utils.utils.Objects                                              import dict_to_obj, __
@@ -44,11 +45,13 @@ class test__int__Routes__User__File_System(TestCase):
     def test_add_folder(self):
         assert self.user_folders_structure.tree_view() == ('🏠root\n'
                                                            '│  📄file_txt')
-        folder_1_id = self.routes_user_files.add_folder(self.request, folder_name='folder_1').get('data').get('folder_id')
+        model__add_folder_1 = Model__API__User__Add_Folder(folder_name='folder_1')
+        folder_1_id = self.routes_user_files.add_folder(self.request, model__add_folder_1).get('data').get('folder_id')
         assert self.user_folders_structure.load().tree_view() == ('🏠root\n'
                                                                   '└─ 📁folder_1\n'
                                                                   '│  📄file_txt')
-        folder_2_id = self.routes_user_files.add_folder(self.request, folder_name='folder_2', parent_folder_id=folder_1_id).get('data').get('folder_id')
+        model__add_folder_2 = Model__API__User__Add_Folder(folder_name='folder_2', parent_folder_id=folder_1_id)
+        folder_2_id = self.routes_user_files.add_folder(self.request, model__add_folder_2).get('data').get('folder_id')
 
         assert self.user_folders_structure.load().tree_view() == ('🏠root\n'
                                                                   '└─ 📁folder_1\n'
@@ -70,7 +73,8 @@ class test__int__Routes__User__File_System(TestCase):
 
     def test_delete_folder(self):
         with self.routes_user_files as _:
-            folder_1_id = self.routes_user_files.add_folder(self.request, folder_name='folder_1').get('data').get('folder_id')
+            model__add_folder_1 = Model__API__User__Add_Folder(folder_name='folder_1')
+            folder_1_id = self.routes_user_files.add_folder(self.request, model__add_folder_1).get('data').get('folder_id')
             response_1  = dict_to_obj(_.delete_folder(self.request, folder_id=folder_1_id))
             response_2  = dict_to_obj(_.delete_folder(self.request, folder_id=folder_1_id))
             assert response_1 == __(data=None, error=None, message='Folder deleted'  , status='ok'   )
