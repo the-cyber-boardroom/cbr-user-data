@@ -7,6 +7,7 @@ from cbr_user_data.fast_api.models.Model__API__User__Add_Folder import Model__AP
 from cbr_user_data.fast_api.models.Model__API__User__Add_File   import Model__API__User__Add_File, SWAGGER_EXAMPLE__Model__API__User__Add_File
 from cbr_user_data.fast_api.models.Model__API__User__Add_Folder import SWAGGER_EXAMPLE__Model__API__User__Add_Folder
 from osbot_fast_api.api.Fast_API_Routes                         import Fast_API_Routes
+from osbot_utils.utils.Misc                                     import base64_to_bytes
 from osbot_utils.utils.Status                                   import status_ok, status_error
 
 
@@ -20,9 +21,9 @@ class Routes__User__File_System(Fast_API_Routes):
     @with_db_user
     def add_file(self, request: Request, model_add_file: Model__API__User__Add_File = SWAGGER_EXAMPLE__Model__API__User__Add_File):
         file_system = self.file_system(request)
-        kwargs      = dict(file_name      =  model_add_file.file_name ,
-                           file_bytes     =  model_add_file.file_bytes,
-                           user_folder_id =  model_add_file.folder_id )
+        kwargs      = dict(file_name      =  model_add_file.file_name                          ,
+                           file_bytes     =  base64_to_bytes(model_add_file.file_bytes__base64),
+                           user_folder_id =  model_add_file.folder_id                         )
         user_file = file_system.add_file(**kwargs)
         return status_ok(message='File added', data = dict(file_id=user_file.file_id))
 
@@ -51,10 +52,18 @@ class Routes__User__File_System(Fast_API_Routes):
 
     @with_db_user
     def file_contents(self, request: Request, file_id: str):
-        file_system = self.file_system(request)
+        file_system   = self.file_system(request)
         file_contents = file_system.file__contents(file_id=file_id)
         if file_contents:
             return status_ok(data=file_contents)
+        return status_error(message='file not found')
+
+    @with_db_user
+    def file_temp_signed_url(self, request: Request, file_id: str):
+        file_system = self.file_system(request)
+        signed_url = file_system.file__temp_signed_url(file_id)
+        if signed_url:
+            return status_ok(data=signed_url)
         return status_error(message='file not found')
 
     @with_db_user
@@ -88,17 +97,19 @@ class Routes__User__File_System(Fast_API_Routes):
 
 
     def setup_routes(self):
-        self.add_route_post  (self.add_file          )
-        self.add_route_post  (self.add_folder        )
-        self.add_route_delete(self.delete_file       )
-        self.add_route_delete(self.delete_folder     )
-        #self.add_route_delete(self.delete_file_system)
-        self.add_route_get   (self.files             )
-        self.add_route_get   (self.file_contents     )
-        self.add_route_get   (self.folder            )
-        self.add_route_get   (self.folder_structure  )
-        self.add_route_get   (self.json_view         )
-        self.add_route_get   (self.tree_view         )
+        self.add_route_post  (self.add_file            )
+        self.add_route_post  (self.add_folder          )
+        self.add_route_delete(self.delete_file         )
+        self.add_route_delete(self.delete_folder       )
+        self.add_route_get   (self.file_temp_signed_url)
+        self.add_route_get   (self.files               )
+        self.add_route_get   (self.file_contents       )
+        self.add_route_get   (self.folder              )
+        self.add_route_get   (self.folder_structure    )
+        self.add_route_get   (self.json_view           )
+        self.add_route_get   (self.tree_view           )
+
+        # self.add_route_delete(self.delete_file_system)
 
     # @with_db_user                                                        # todo: find better place to put this, since this feels quite dangerous to have like this
     # def delete_file_system(self, request: Request):                      # todo: we really should add an 'are you sure?" check there :)

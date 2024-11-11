@@ -7,7 +7,7 @@ SWAGGER_EXAMPLE__Model__API__User__Add_File  = Body(..., example=dict(file_name 
                                                                              folder_id  = ''              ))
 @dataclass
 class Model__API__User__Add_File(Type_Safe):
-    file_name  : str
-    file_bytes : bytes
-    folder_id  : str = None                                  # todo: find way to make Random_Guid work here
+    file_name          : str
+    file_bytes__base64 : str
+    folder_id          : str = None                                  # todo: find way to make Random_Guid work here
 
