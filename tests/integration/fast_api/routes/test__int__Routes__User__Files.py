@@ -1,14 +1,11 @@
-import pytest
 from unittest                                                               import TestCase
 from cbr_shared.cbr_backend.folders.Temp_Folders_Structure                  import Temp_Folders_Structure
 from cbr_shared.cbr_backend.folders.models.Model__User__Folders__Structure  import Model__User__Folders__Structure
 from cbr_shared.cbr_backend.users.Temp_User_Request                         import Temp_User_Request
 from cbr_user_data.fast_api.models.Model__API__User__Add_File               import Model__API__User__Add_File
 from cbr_user_data.fast_api.routes.Routes__User__File_System                import Routes__User__File_System
-from osbot_utils.utils.Env                                                  import not_in_github_action
 from osbot_utils.utils.Misc                                                 import is_guid
 from osbot_utils.utils.Objects                                              import dict_to_obj, __
-from osbot_utils.utils.Status                                               import status_ok
 from tests.integration.user_data__objs_for_tests                            import user_data__assert_local_stack
 
 class test__int__Routes__User__File_System(TestCase):
@@ -68,19 +65,29 @@ class test__int__Routes__User__File_System(TestCase):
                                                                   '│  └─ 📁folder_2\n'
                                                                   '│  │  │  📄file_txt\n'
                                                                   '│  📄file_txt')
-        #pprint(self.user_folders_structure.load().json_view())
 
-    def test_delete_file_system(self):
-        if not_in_github_action():
-            pytest.skip("Don't execute locally since it takes about 200ms to run")
+        assert self.routes_user_files.folder(request=self.request, folder_id=folder_1_id).get('status') == 'ok'
+
+    def test_delete_folder(self):
         with self.routes_user_files as _:
-            assert self.temp_user_request.temp_user.user_config().file_system == False
-            assert _.tree_view(self.request)                                  == '🏠root'
-            assert self.temp_user_request.temp_user.user_config().file_system == True
-            assert _.delete_file_system(self.request) == status_ok(message="File System deleted")
-            assert self.temp_user_request.temp_user.user_config().file_system == False
-            assert _.tree_view(self.request) == '🏠root'
-            assert self.temp_user_request.temp_user.user_config().file_system == True
+            folder_1_id = self.routes_user_files.add_folder(self.request, folder_name='folder_1').get('data').get('folder_id')
+            response_1  = dict_to_obj(_.delete_folder(self.request, folder_id=folder_1_id))
+            response_2  = dict_to_obj(_.delete_folder(self.request, folder_id=folder_1_id))
+            assert response_1 == __(data=None, error=None, message='Folder deleted'  , status='ok'   )
+            assert response_2 == __(data=None, error=None, message='Folder not found', status='error')
+
+    def test_file_contents(self):
+        with self.routes_user_files as _:
+            model_api_user_add_file = Model__API__User__Add_File(file_name='file.txt', file_bytes=b'hello world')
+            file_id                 = dict_to_obj(self.routes_user_files.add_file(request=self.request, model_add_file=model_api_user_add_file)).data.file_id
+            response                = dict_to_obj(_.file_contents(self.request, file_id))
+            assert  response.status                  == 'ok'
+            assert response.data.file_data.file_name == 'file.txt'
+            assert response.data.file_contents       == b'hello world'
+
+            response__file_delete = dict_to_obj(self.routes_user_files.delete_file(request=self.request, file_id=file_id))
+            assert response__file_delete == __(data=None, error=None, message='File deleted', status='ok')
+
 
     def test_folder_structure(self):
         with self.routes_user_files as _:
@@ -99,3 +106,15 @@ class test__int__Routes__User__File_System(TestCase):
                                                                '│  └─ 📁folder_2\n'
                                                                '│  │  │  📄file_txt\n'
                                                                '│  📄file_txt')
+
+    # def test_delete_file_system(self):
+    #     if not_in_github_action():
+    #         pytest.skip("Don't execute locally since it takes about 200ms to run")
+    #     with self.routes_user_files as _:
+    #         assert self.temp_user_request.temp_user.user_config().file_system == False
+    #         assert _.tree_view(self.request)                                  == '🏠root'
+    #         assert self.temp_user_request.temp_user.user_config().file_system == True
+    #         assert _.delete_file_system(self.request) == status_ok(message="File System deleted")
+    #         assert self.temp_user_request.temp_user.user_config().file_system == False
+    #         assert _.tree_view(self.request) == '🏠root'
+    #         assert self.temp_user_request.temp_user.user_config().file_system == True
