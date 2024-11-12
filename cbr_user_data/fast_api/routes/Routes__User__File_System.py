@@ -1,6 +1,7 @@
+import io
 from fastapi                                                    import Body
 from starlette.requests                                         import Request
-from starlette.responses                                        import PlainTextResponse
+from starlette.responses                                        import PlainTextResponse, StreamingResponse, Response
 from cbr_shared.cbr_backend.files.User__File__System            import User__File__System
 from cbr_shared.cbr_backend.users.decorators.with_db_user       import with_db_user
 from cbr_user_data.fast_api.models.Model__API__User__Add_Folder import Model__API__User__Add_Folder
@@ -59,6 +60,24 @@ class Routes__User__File_System(Fast_API_Routes):
         return status_error(message='file not found')
 
     @with_db_user
+    def file_download(self, request: Request, file_id: str):
+        file_system = self.file_system(request)
+        file_contents = file_system.file__contents(file_id=file_id)
+        if file_contents:
+            file_bytes = base64_to_bytes(file_contents.get('file_bytes__base64'))
+            file_name   = file_contents.get('file_data').get('file_name')
+            # Use StreamingResponse to stream the file back to the client
+            return StreamingResponse(io.BytesIO(file_bytes),
+                                     media_type="application/octet-stream",                                  # Specify generic binary file, adjust as needed
+                                     headers={ "Content-Disposition": f"attachment; filename={file_name}"})
+
+        else:
+            return Response(status_code=404, content="File not found")
+
+
+
+
+    @with_db_user
     def file_temp_signed_url(self, request: Request, file_id: str):
         file_system = self.file_system(request)
         signed_url = file_system.file__temp_signed_url(file_id)
@@ -104,6 +123,7 @@ class Routes__User__File_System(Fast_API_Routes):
         self.add_route_get   (self.file_temp_signed_url)
         self.add_route_get   (self.files               )
         self.add_route_get   (self.file_contents       )
+        self.add_route_get   (self.file_download       )
         self.add_route_get   (self.folder              )
         self.add_route_get   (self.folder_structure    )
         self.add_route_get   (self.json_view           )
