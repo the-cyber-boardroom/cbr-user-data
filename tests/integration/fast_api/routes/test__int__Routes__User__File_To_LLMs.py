@@ -32,8 +32,10 @@ class test__int__Routes__User__File_To_LLMs(TestCase):
         assert self.temp_folders_structure.user_folders_structure      .exists() is True
         assert self.file_system.user_folders().user_folders_structure().exists() is True
 
-    def test_file__summary(self):
-        file_id = self.temp_file()
-        result = self.routes_user_file_to_llms.file_summary(request=self.temp_user_request.request, file_id=file_id)
-        #pprint(result)
+    # this needs an LLM Cache
+    # def test_file__summary(self):
+    #     file_id = self.temp_file(file_bytes=b"This is a document about Cyber Security")
+    #     result = self.routes_user_file_to_llms.file_summary(request=self.temp_user_request.request, file_id=file_id)
+    #     from osbot_utils.utils.Dev import pprint
+    #     pprint(result)
 
