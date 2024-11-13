@@ -37,8 +37,8 @@ class Routes__User__File_To_LLMs(Fast_API_Routes):
     def folder_summary(self, request: Request, folder_id: str, re_create: bool = False):            # todo: refactor out this code from here
         file_system    = self.file_system(request)
 
-        folder_summary = file_system.folder_summary(folder_id=folder_id) if re_create is False else ''
-        if not folder_summary:
+        folder_summary = file_system.folder_summary(folder_id=folder_id)
+        if not folder_summary and re_create:
             user_folder = file_system.user_folders().user_folder(user_folder_id=folder_id)
             if not user_folder:
                 return status_error(f'folder not found: {folder_id}')
@@ -67,9 +67,11 @@ class Routes__User__File_To_LLMs(Fast_API_Routes):
             for sub_folder_id in user_folder.folders:                                                   # todo: add support for all sub-folders (since this is only going one level deep)
                 sub_folder                  = file_system.user_folders().user_folder(sub_folder_id)
                 all_files_summaries__prompt = process_files(sub_folder.files, all_files_summaries__prompt)
-
-            folder_summary = self.llm_content_actions.create_summary(target_text=all_files_summaries__prompt)
-            file_system.folder_summary__update(folder_id=folder_id, folder_summary=folder_summary)
+            if all_files_summaries__prompt:
+                folder_summary = self.llm_content_actions.create_summary(target_text=all_files_summaries__prompt)
+                file_system.folder_summary__update(folder_id=folder_id, folder_summary=folder_summary)
+            else:
+                folder_summary = '... there were no files summary to work with'
 
         if folder_summary:
             return status_ok(data=folder_summary)

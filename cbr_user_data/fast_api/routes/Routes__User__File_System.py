@@ -6,6 +6,7 @@ from cbr_shared.cbr_backend.users.decorators.with_db_user          import with_d
 from cbr_user_data.fast_api.models.Model__API__User__Rename_Folder import Model__API__User__Rename_Folder, SWAGGER_EXAMPLE__Model__API__User__Rename_Folder
 from cbr_user_data.fast_api.models.Model__API__User__Add_Folder    import Model__API__User__Add_Folder   , SWAGGER_EXAMPLE__Model__API__User__Add_Folder
 from cbr_user_data.fast_api.models.Model__API__User__Add_File      import Model__API__User__Add_File     , SWAGGER_EXAMPLE__Model__API__User__Add_File
+from cbr_user_data.fast_api.models.Model__API__User__Update_File   import Model__API__User__Update_File  , SWAGGER_EXAMPLE__Model__API__User__Update_File
 from osbot_fast_api.api.Fast_API_Routes                            import Fast_API_Routes
 from osbot_utils.utils.Misc                                        import base64_to_bytes
 from osbot_utils.utils.Status                                      import status_ok, status_error
@@ -122,6 +123,17 @@ class Routes__User__File_System(Fast_API_Routes):
         return status_error(message="File not found")
 
     @with_db_user
+    def update_file(self, request: Request, model_update_file: Model__API__User__Update_File = SWAGGER_EXAMPLE__Model__API__User__Update_File):
+        file_system  = self.file_system(request)
+        file_id      = model_update_file.file_id
+        file_bytes   = base64_to_bytes(model_update_file.file_bytes__base64)
+        file         = file_system.file(file_id=file_id)
+        if file:
+            file.contents__update(file_bytes)
+            return status_ok(message='File updated')
+        return status_error(message='file not found')
+
+    @with_db_user
     def tree_view(self, request: Request):
         file_system = self.file_system(request)
         tree_view   = file_system.tree_view()
@@ -141,6 +153,7 @@ class Routes__User__File_System(Fast_API_Routes):
         self.add_route_get   (self.folder_structure    )
         self.add_route_post  (self.folder_rename       )
         self.add_route_get   (self.json_view           )
+        self.add_route_put   (self.update_file         )
         self.add_route_get   (self.tree_view           )
 
         # self.add_route_delete(self.delete_file_system)
