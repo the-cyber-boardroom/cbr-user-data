@@ -3,6 +3,8 @@ from starlette.requests                                            import Reques
 from starlette.responses                                           import PlainTextResponse, StreamingResponse, Response
 from cbr_shared.cbr_backend.files.User__File__System               import User__File__System
 from cbr_shared.cbr_backend.users.decorators.with_db_user          import with_db_user
+from cbr_user_data.fast_api.models.Model__API__User__Rename_File import Model__API__User__Rename_File, \
+    SWAGGER_EXAMPLE__Model__API__User__Rename_File
 from cbr_user_data.fast_api.models.Model__API__User__Rename_Folder import Model__API__User__Rename_Folder, SWAGGER_EXAMPLE__Model__API__User__Rename_Folder
 from cbr_user_data.fast_api.models.Model__API__User__Add_Folder    import Model__API__User__Add_Folder   , SWAGGER_EXAMPLE__Model__API__User__Add_Folder
 from cbr_user_data.fast_api.models.Model__API__User__Add_File      import Model__API__User__Add_File     , SWAGGER_EXAMPLE__Model__API__User__Add_File
@@ -116,6 +118,15 @@ class Routes__User__File_System(Fast_API_Routes):
         return file_system.json_view()
 
     @with_db_user
+    def rename_file(self, request: Request, model_rename_file:Model__API__User__Rename_File = SWAGGER_EXAMPLE__Model__API__User__Rename_File):
+        file_system = self.file_system(request)
+        file_id     = model_rename_file.file_id
+        file_name   = model_rename_file.new_file_name
+        if file_system.rename_file(file_id, file_name):
+            return status_ok(message='File renamed')
+        return status_error(message='file not found')
+
+    @with_db_user
     def rename_folder(self, request: Request, folder_id: str, new_name: str):
         file_system = self.file_system(request)
         if file_system.folder_rename(folder_id, new_name):
@@ -154,6 +165,7 @@ class Routes__User__File_System(Fast_API_Routes):
         self.add_route_post  (self.folder_rename       )
         self.add_route_get   (self.json_view           )
         self.add_route_put   (self.update_file         )
+        self.add_route_put   (self.rename_file         )
         self.add_route_get   (self.tree_view           )
 
         # self.add_route_delete(self.delete_file_system)
