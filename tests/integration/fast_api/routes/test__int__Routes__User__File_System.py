@@ -113,7 +113,7 @@ class test__int__Routes__User__File_System(TestCase):
             assert is_guid(root_id)                            is True
             assert folder_structure.folders[root_id].folder_id == root_id
 
-    def test_tree_view(self):
+    def test_zz__tree_view(self):
         with self.routes_user_files as _:
             assert _.tree_view(self.request).body.decode() == ('🏠root\n'
                                                                '└─ 📁folder_1\n'
