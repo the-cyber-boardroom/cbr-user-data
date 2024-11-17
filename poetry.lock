@@ -33,17 +33,17 @@ trio = ["trio (>=0.26.1)"]
 
 [[package]]
 name = "boto3"
-version = "1.35.58"
+version = "1.35.63"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.35.58-py3-none-any.whl", hash = "sha256:856896fd5fc5871758eb04b27bad5bbbf0fdb6143a923f9e8d10125351efdf98"},
-    {file = "boto3-1.35.58.tar.gz", hash = "sha256:1ee139e63f1545ee0192914cfe422b68360b8c344a94e4612ac657dd7ece93de"},
+    {file = "boto3-1.35.63-py3-none-any.whl", hash = "sha256:d0f938d4f6f392b6ffc5e75fff14a42e5bbb5228675a0367c8af55398abadbec"},
+    {file = "boto3-1.35.63.tar.gz", hash = "sha256:deb593d9a0fb240deb4c43e4da8e6626d7c36be7b2fd2fe28f49d44d395b7de0"},
 ]
 
 [package.dependencies]
-botocore = ">=1.35.58,<1.36.0"
+botocore = ">=1.35.63,<1.36.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -52,13 +52,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.35.58"
+version = "1.35.63"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.35.58-py3-none-any.whl", hash = "sha256:647b8706ae6484ee4c2208235f38976d9f0e52f80143e81d7941075215e96111"},
-    {file = "botocore-1.35.58.tar.gz", hash = "sha256:8303309c7b59ddf04b11d79813530809d6b10b411ac9f93916d2032c283d6881"},
+    {file = "botocore-1.35.63-py3-none-any.whl", hash = "sha256:0ca1200694a4c0a3fa846795d8e8a08404c214e21195eb9e010c4b8a4ca78a4a"},
+    {file = "botocore-1.35.63.tar.gz", hash = "sha256:2b8196bab0a997d206c3d490b52e779ef47dffb68c57c685443f77293aca1589"},
 ]
 
 [package.dependencies]
@@ -71,13 +71,13 @@ crt = ["awscrt (==0.22.0)"]
 
 [[package]]
 name = "cbr-content"
-version = "0.9.69"
+version = "0.9.71"
 description = "CBR - Content"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_content-0.9.69-py3-none-any.whl", hash = "sha256:49127a5b46c01c657dc62d8fadb0a9fdf328406aaead092b5589bd7c4355ceee"},
-    {file = "cbr_content-0.9.69.tar.gz", hash = "sha256:27bc94ab9f5c8c0c631ee2ff7120beb185f88bac12d75615ff36780669975020"},
+    {file = "cbr_content-0.9.71-py3-none-any.whl", hash = "sha256:6a787ff10df0fde6c199c67c5302e078be094e704ea37bbb6cdb46b72449f2ae"},
+    {file = "cbr_content-0.9.71.tar.gz", hash = "sha256:05841bc369a50686566cca6bd4f0a6c14e969191ebb1b05288f46b57a62f5b2d"},
 ]
 
 [package.dependencies]
@@ -85,13 +85,13 @@ osbot-markdown = "*"
 
 [[package]]
 name = "cbr-shared"
-version = "0.3.61"
+version = "0.3.66"
 description = "CBR - Shared"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_shared-0.3.61-py3-none-any.whl", hash = "sha256:23787c72bcf4372ca34fea725f154243725e0cf8c629b3b8c3b4024eda85f6f8"},
-    {file = "cbr_shared-0.3.61.tar.gz", hash = "sha256:a5786d53ae6c3c9075b266bb70ac8fba0a6356e9fbef4d918fea471105755b8d"},
+    {file = "cbr_shared-0.3.66-py3-none-any.whl", hash = "sha256:23a36f9acc786afdfdc5f3cd834e3064a861f4c4d8f6518626fda625005a1557"},
+    {file = "cbr_shared-0.3.66.tar.gz", hash = "sha256:d7c748951399ae2236684ee6ef3af83061d8d4c94bdc9cf5e85c3205308f2320"},
 ]
 
 [package.dependencies]
@@ -253,13 +253,13 @@ files = [
 
 [[package]]
 name = "fastapi"
-version = "0.115.4"
+version = "0.115.5"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fastapi-0.115.4-py3-none-any.whl", hash = "sha256:0b504a063ffb3cf96a5e27dc1bc32c80ca743a2528574f9cdc77daa2d31b4742"},
-    {file = "fastapi-0.115.4.tar.gz", hash = "sha256:db653475586b091cb8b2fec2ac54a680ac6a158e07406e1abae31679e8826349"},
+    {file = "fastapi-0.115.5-py3-none-any.whl", hash = "sha256:596b95adbe1474da47049e802f9a65ab2ffa9c2b07e7efee70eb8a66c9f2f796"},
+    {file = "fastapi-0.115.5.tar.gz", hash = "sha256:0e7a4d0dc0d01c68df21887cce0945e72d3c48b9f4f79dfe7a7d53aa08fbb289"},
 ]
 
 [package.dependencies]
@@ -284,13 +284,13 @@ files = [
 
 [[package]]
 name = "httpcore"
-version = "1.0.6"
+version = "1.0.7"
 description = "A minimal low-level HTTP client."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "httpcore-1.0.6-py3-none-any.whl", hash = "sha256:27b59625743b85577a8c0e10e55b50b5368a4f2cfe8cc7bcfa9cf00829c2682f"},
-    {file = "httpcore-1.0.6.tar.gz", hash = "sha256:73f6dbd6eb8c21bbf7ef8efad555481853f5f6acdeaff1edb0694289269ee17f"},
+    {file = "httpcore-1.0.7-py3-none-any.whl", hash = "sha256:a3fff8f43dc260d5bd363d9f9cf1830fa3a458b332856f34282de498ed420edd"},
+    {file = "httpcore-1.0.7.tar.gz", hash = "sha256:8551cb62a169ec7162ac7be8d4817d561f60e08eaa485234898414bb5a8a0b4c"},
 ]
 
 [package.dependencies]
@@ -419,13 +419,13 @@ files = [
 
 [[package]]
 name = "osbot-aws"
-version = "2.37.3"
+version = "2.37.8"
 description = "OWASP Security Bot - AWS"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_aws-2.37.3-py3-none-any.whl", hash = "sha256:c734c2f3907eae9f9d4186902f7dce659bef6d9062e3e39e7091d39a06d78cb9"},
-    {file = "osbot_aws-2.37.3.tar.gz", hash = "sha256:1cfa4ebb54e5780fcb6c365ef5d8c7743b207d973b97414d74f7d009abcfe184"},
+    {file = "osbot_aws-2.37.8-py3-none-any.whl", hash = "sha256:6fd478fed27f975d0f3febb0619c506f47aabae78f1a76e69714ea8b496b64eb"},
+    {file = "osbot_aws-2.37.8.tar.gz", hash = "sha256:bb52cdfd525b5e01c2089cb4e554af68d65fe78c41f3ccdf7f230c78eb2dc49b"},
 ]
 
 [package.dependencies]
@@ -481,13 +481,13 @@ osbot-utils = "*"
 
 [[package]]
 name = "osbot-utils"
-version = "1.76.0"
+version = "1.77.0"
 description = "OWASP Security Bot - Utils"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_utils-1.76.0-py3-none-any.whl", hash = "sha256:40ea460a3c75bafb784ce1b2fb5797d9e9c02ee3dbad7cbe333a7ece66ffac89"},
-    {file = "osbot_utils-1.76.0.tar.gz", hash = "sha256:5ed85c7e896c92059b7d73a00ff562ddd5a71dcaf49b9c1dc049a2cf751cba08"},
+    {file = "osbot_utils-1.77.0-py3-none-any.whl", hash = "sha256:93ccc9f55d96089d077963fd15aa7f6485d0b0b95166f855ede8a470b76de767"},
+    {file = "osbot_utils-1.77.0.tar.gz", hash = "sha256:2feb44ebd8e1af2f5a6628ee0ccd358fb88fdf6d2c700d03762cf6604bf6b0e1"},
 ]
 
 [[package]]

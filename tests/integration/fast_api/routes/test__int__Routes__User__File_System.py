@@ -95,7 +95,7 @@ class test__int__Routes__User__File_System(TestCase):
             assert response.data.file_data.file_name                                == 'file.txt'
             assert response.data.file_bytes__base64                                 == file_bytes__base64
             assert  _.update_file(self.request, model_update_file).get('message')   == 'File updated'
-            assert len(_.file_versions(self.request, file_id))                      == 2
+            assert len(_.file_versions(self.request, file_id).get('data'))          == 2
 
             response__file_delete = dict_to_obj(self.routes_user_files.delete_file(request=self.request, file_id=file_id))
             assert response__file_delete == __(data=None, error=None, message='File deleted', status='ok')

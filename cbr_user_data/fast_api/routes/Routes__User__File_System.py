@@ -54,7 +54,7 @@ class Routes__User__File_System(Fast_API_Routes):
             return status_error(message=str(error))
 
     @with_db_user
-    def file__bytes(self, request: Request, file_id: str, version_id: str = None):
+    def file_bytes(self, request: Request, file_id: str, version_id: str = None):
         file_system = self.file_system(request)
         file__bytes = file_system.file__bytes(file_id=file_id, version_id=version_id)
         if file__bytes:
@@ -96,7 +96,10 @@ class Routes__User__File_System(Fast_API_Routes):
     @with_db_user
     def file_versions(self, request: Request, file_id: str):
         file_system = self.file_system(request)
-        return file_system.file_versions(file_id)
+        versions = file_system.file_versions(file_id)
+        if versions:
+            return status_ok(data=versions)
+        return status_error(message='file not found')
 
     @with_db_user
     def files(self, request: Request):
@@ -170,7 +173,7 @@ class Routes__User__File_System(Fast_API_Routes):
         self.add_route_delete(self.delete_folder       )
         self.add_route_get   (self.file_temp_signed_url)
         self.add_route_get   (self.files               )
-        self.add_route_get   (self.file__bytes         )
+        self.add_route_get   (self.file_bytes          )
         self.add_route_get   (self.file_contents       )
         self.add_route_get   (self.file_download       )
         self.add_route_get   (self.file_versions       )
