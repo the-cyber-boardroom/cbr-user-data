@@ -1,17 +1,16 @@
 import io
-from starlette.requests                                            import Request
-from starlette.responses                                           import PlainTextResponse, StreamingResponse, Response
-from cbr_shared.cbr_backend.files.User__File__System               import User__File__System
-from cbr_shared.cbr_backend.users.decorators.with_db_user          import with_db_user
-from cbr_user_data.fast_api.models.Model__API__User__Rename_File import Model__API__User__Rename_File, \
-    SWAGGER_EXAMPLE__Model__API__User__Rename_File
-from cbr_user_data.fast_api.models.Model__API__User__Rename_Folder import Model__API__User__Rename_Folder, SWAGGER_EXAMPLE__Model__API__User__Rename_Folder
-from cbr_user_data.fast_api.models.Model__API__User__Add_Folder    import Model__API__User__Add_Folder   , SWAGGER_EXAMPLE__Model__API__User__Add_Folder
-from cbr_user_data.fast_api.models.Model__API__User__Add_File      import Model__API__User__Add_File     , SWAGGER_EXAMPLE__Model__API__User__Add_File
-from cbr_user_data.fast_api.models.Model__API__User__Update_File   import Model__API__User__Update_File  , SWAGGER_EXAMPLE__Model__API__User__Update_File
-from osbot_fast_api.api.Fast_API_Routes                            import Fast_API_Routes
-from osbot_utils.utils.Misc                                        import base64_to_bytes
-from osbot_utils.utils.Status                                      import status_ok, status_error
+from starlette.requests                                             import Request
+from starlette.responses                                            import PlainTextResponse, StreamingResponse, Response
+from cbr_shared.cbr_backend.files.User__File__System                import User__File__System
+from cbr_shared.cbr_backend.users.decorators.with_db_user           import with_db_user
+from cbr_user_data.fast_api.models.Model__API__User__Rename_File    import Model__API__User__Rename_File, SWAGGER_EXAMPLE__Model__API__User__Rename_File
+from cbr_user_data.fast_api.models.Model__API__User__Rename_Folder  import Model__API__User__Rename_Folder, SWAGGER_EXAMPLE__Model__API__User__Rename_Folder
+from cbr_user_data.fast_api.models.Model__API__User__Add_Folder     import Model__API__User__Add_Folder   , SWAGGER_EXAMPLE__Model__API__User__Add_Folder
+from cbr_user_data.fast_api.models.Model__API__User__Add_File       import Model__API__User__Add_File     , SWAGGER_EXAMPLE__Model__API__User__Add_File
+from cbr_user_data.fast_api.models.Model__API__User__Update_File    import Model__API__User__Update_File  , SWAGGER_EXAMPLE__Model__API__User__Update_File
+from osbot_fast_api.api.Fast_API_Routes                             import Fast_API_Routes
+from osbot_utils.utils.Misc                                         import base64_to_bytes
+from osbot_utils.utils.Status                                       import status_ok, status_error
 
 
 class Routes__User__File_System(Fast_API_Routes):
@@ -55,6 +54,14 @@ class Routes__User__File_System(Fast_API_Routes):
             return status_error(message=str(error))
 
     @with_db_user
+    def file__bytes(self, request: Request, file_id: str, version_id: str = None):
+        file_system = self.file_system(request)
+        file__bytes = file_system.file__bytes(file_id=file_id, version_id=version_id)
+        if file__bytes:
+            return status_ok(data=file__bytes)
+        return status_error(message='file not found')
+
+    @with_db_user
     def file_contents(self, request: Request, file_id: str):
         file_system   = self.file_system(request)
         file_contents = file_system.file__contents(file_id=file_id)
@@ -85,6 +92,11 @@ class Routes__User__File_System(Fast_API_Routes):
         if signed_url:
             return status_ok(data=signed_url)
         return status_error(message='file not found')
+
+    @with_db_user
+    def file_versions(self, request: Request, file_id: str):
+        file_system = self.file_system(request)
+        return file_system.file_versions(file_id)
 
     @with_db_user
     def files(self, request: Request):
@@ -158,8 +170,10 @@ class Routes__User__File_System(Fast_API_Routes):
         self.add_route_delete(self.delete_folder       )
         self.add_route_get   (self.file_temp_signed_url)
         self.add_route_get   (self.files               )
+        self.add_route_get   (self.file__bytes         )
         self.add_route_get   (self.file_contents       )
         self.add_route_get   (self.file_download       )
+        self.add_route_get   (self.file_versions       )
         self.add_route_get   (self.folder              )
         self.add_route_get   (self.folder_structure    )
         self.add_route_post  (self.folder_rename       )

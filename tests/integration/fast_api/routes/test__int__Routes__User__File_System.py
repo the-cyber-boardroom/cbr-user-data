@@ -4,6 +4,7 @@ from cbr_shared.cbr_backend.folders.models.Model__User__Folders__Structure  impo
 from cbr_shared.cbr_backend.users.Temp_User_Request                         import Temp_User_Request
 from cbr_user_data.fast_api.models.Model__API__User__Add_File               import Model__API__User__Add_File
 from cbr_user_data.fast_api.models.Model__API__User__Add_Folder             import Model__API__User__Add_Folder
+from cbr_user_data.fast_api.models.Model__API__User__Update_File            import Model__API__User__Update_File
 from cbr_user_data.fast_api.routes.Routes__User__File_System                import Routes__User__File_System
 from osbot_utils.utils.Misc                                                 import is_guid, bytes_to_base64
 from osbot_utils.utils.Objects                                              import dict_to_obj, __
@@ -84,16 +85,23 @@ class test__int__Routes__User__File_System(TestCase):
 
     def test_file_contents(self):
         with self.routes_user_files as _:
-            file_bytes__base64 = bytes_to_base64(b'hello world')
+            file_bytes__base64      = bytes_to_base64(b'hello world')
             model_api_user_add_file = Model__API__User__Add_File(file_name='file.txt', file_bytes__base64=file_bytes__base64)
             file_id                 = dict_to_obj(self.routes_user_files.add_file(request=self.request, model_add_file=model_api_user_add_file)).data.file_id
             response                = dict_to_obj(_.file_contents(self.request, file_id))
-            assert  response.status                  == 'ok'
-            assert response.data.file_data.file_name == 'file.txt'
-            assert response.data.file_bytes__base64  == file_bytes__base64
+            model_update_file       = Model__API__User__Update_File(file_id=file_id, file_bytes__base64=bytes_to_base64(b'hello world 2'))
+
+            assert  response.status                                                 == 'ok'
+            assert response.data.file_data.file_name                                == 'file.txt'
+            assert response.data.file_bytes__base64                                 == file_bytes__base64
+            assert  _.update_file(self.request, model_update_file).get('message')   == 'File updated'
+            assert len(_.file_versions(self.request, file_id))                      == 2
 
             response__file_delete = dict_to_obj(self.routes_user_files.delete_file(request=self.request, file_id=file_id))
             assert response__file_delete == __(data=None, error=None, message='File deleted', status='ok')
+
+
+
 
 
     def test_folder_structure(self):
@@ -107,7 +115,6 @@ class test__int__Routes__User__File_System(TestCase):
 
     def test_tree_view(self):
         with self.routes_user_files as _:
-            print()
             assert _.tree_view(self.request).body.decode() == ('🏠root\n'
                                                                '└─ 📁folder_1\n'
                                                                '│  └─ 📁folder_2\n'
