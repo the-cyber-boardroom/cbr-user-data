@@ -9,13 +9,13 @@ from cbr_shared.cbr_backend.users.decorators.with_db_user                   impo
 from cbr_user_data.fast_api.routes.Routes__User__Notifications              import Routes__User__Notifications
 from osbot_utils.utils.Misc                                                 import random_text
 from osbot_utils.utils.Threads                                              import invoke_async
-from tests.integration.cbr_shared__for_integration_tests                    import cbr_shared__assert_local_stack
+from tests.integration.user_data__objs_for_tests                            import user_data__assert_local_stack
 
 
 class test__int__Routes__User__Notifications(TestCase):
     @classmethod
     def setUpClass(cls):
-        cbr_shared__assert_local_stack()
+        user_data__assert_local_stack()
         cls.temp_user_request         = Temp_User_Request().create()
         cls.temp_user                 = cls.temp_user_request.temp_user
         cls.db_session                = cls.temp_user_request.temp_db_session
