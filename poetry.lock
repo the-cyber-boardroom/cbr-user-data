@@ -33,17 +33,17 @@ trio = ["trio (>=0.26.1)"]
 
 [[package]]
 name = "boto3"
-version = "1.35.63"
+version = "1.35.65"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.35.63-py3-none-any.whl", hash = "sha256:d0f938d4f6f392b6ffc5e75fff14a42e5bbb5228675a0367c8af55398abadbec"},
-    {file = "boto3-1.35.63.tar.gz", hash = "sha256:deb593d9a0fb240deb4c43e4da8e6626d7c36be7b2fd2fe28f49d44d395b7de0"},
+    {file = "boto3-1.35.65-py3-none-any.whl", hash = "sha256:acbca38322b66516450f959c7874826267d431becdc2b080e331e56c2ebbe507"},
+    {file = "boto3-1.35.65.tar.gz", hash = "sha256:f6c266b4124b92b1603727bf1ed1917e0b74a899bd0e326f151d80c3eaed27a1"},
 ]
 
 [package.dependencies]
-botocore = ">=1.35.63,<1.36.0"
+botocore = ">=1.35.65,<1.36.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -52,13 +52,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.35.63"
+version = "1.35.65"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.35.63-py3-none-any.whl", hash = "sha256:0ca1200694a4c0a3fa846795d8e8a08404c214e21195eb9e010c4b8a4ca78a4a"},
-    {file = "botocore-1.35.63.tar.gz", hash = "sha256:2b8196bab0a997d206c3d490b52e779ef47dffb68c57c685443f77293aca1589"},
+    {file = "botocore-1.35.65-py3-none-any.whl", hash = "sha256:8fcaa82ab2338f412e1494449c4c57f9ca785623fb0303f6be5b279c4d27522c"},
+    {file = "botocore-1.35.65.tar.gz", hash = "sha256:46652f732f2b2fb395fffcc33cacb288d05ea283047c9a996fb59d6849464919"},
 ]
 
 [package.dependencies]
@@ -71,13 +71,13 @@ crt = ["awscrt (==0.22.0)"]
 
 [[package]]
 name = "cbr-content"
-version = "0.9.71"
+version = "0.9.72"
 description = "CBR - Content"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_content-0.9.71-py3-none-any.whl", hash = "sha256:6a787ff10df0fde6c199c67c5302e078be094e704ea37bbb6cdb46b72449f2ae"},
-    {file = "cbr_content-0.9.71.tar.gz", hash = "sha256:05841bc369a50686566cca6bd4f0a6c14e969191ebb1b05288f46b57a62f5b2d"},
+    {file = "cbr_content-0.9.72-py3-none-any.whl", hash = "sha256:4543d4254015de146cb738570c7630f6cf5e5a2b6a57dabfa0025e986bbad0af"},
+    {file = "cbr_content-0.9.72.tar.gz", hash = "sha256:0a6699626b90d420f0a2b13661635193e3a004ef5d3188f8865e5e4556530d6c"},
 ]
 
 [package.dependencies]
@@ -85,13 +85,13 @@ osbot-markdown = "*"
 
 [[package]]
 name = "cbr-shared"
-version = "0.3.66"
+version = "0.3.69"
 description = "CBR - Shared"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_shared-0.3.66-py3-none-any.whl", hash = "sha256:23a36f9acc786afdfdc5f3cd834e3064a861f4c4d8f6518626fda625005a1557"},
-    {file = "cbr_shared-0.3.66.tar.gz", hash = "sha256:d7c748951399ae2236684ee6ef3af83061d8d4c94bdc9cf5e85c3205308f2320"},
+    {file = "cbr_shared-0.3.69-py3-none-any.whl", hash = "sha256:db578993bc35698c916a961ebdeb8f1a7f1c84eefcaaa8b7070c8cce64f9faec"},
+    {file = "cbr_shared-0.3.69.tar.gz", hash = "sha256:3e92f5e36ebc7f9181e0bc786c31f56609ba751ae8df4cfe815c85c0eb4c7af9"},
 ]
 
 [package.dependencies]
@@ -434,13 +434,13 @@ osbot-utils = "*"
 
 [[package]]
 name = "osbot-fast-api"
-version = "0.7.21"
+version = "0.7.22"
 description = "OWASP Security Bot - Fast API"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "osbot_fast_api-0.7.21-py3-none-any.whl", hash = "sha256:e9bf0450db131f4edc00ee226c273bcd32497dee1cdbfb819bd7df016c94ba04"},
-    {file = "osbot_fast_api-0.7.21.tar.gz", hash = "sha256:27dc39496656bcfc92e1bae45006bc854599a51743e87a71135840e0c941b735"},
+    {file = "osbot_fast_api-0.7.22-py3-none-any.whl", hash = "sha256:11f1f237577a67cbb4b657e9cc24bb608de4c7a058ec8364daa6ada5d7235c63"},
+    {file = "osbot_fast_api-0.7.22.tar.gz", hash = "sha256:1175ee1f548ddc592ede8f8e869c9647a2b2be0cbd228653a7870cae294f89a7"},
 ]
 
 [package.dependencies]
@@ -481,13 +481,13 @@ osbot-utils = "*"
 
 [[package]]
 name = "osbot-utils"
-version = "1.77.0"
+version = "1.80.0"
 description = "OWASP Security Bot - Utils"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_utils-1.77.0-py3-none-any.whl", hash = "sha256:93ccc9f55d96089d077963fd15aa7f6485d0b0b95166f855ede8a470b76de767"},
-    {file = "osbot_utils-1.77.0.tar.gz", hash = "sha256:2feb44ebd8e1af2f5a6628ee0ccd358fb88fdf6d2c700d03762cf6604bf6b0e1"},
+    {file = "osbot_utils-1.80.0-py3-none-any.whl", hash = "sha256:5a320181970762a371ed4adfe89099405929bc06c9c71ec2b7bf38312bed007d"},
+    {file = "osbot_utils-1.80.0.tar.gz", hash = "sha256:6444af3e78185df6dfe6b0469299e1bde7774c45abf2e020e450e38c5639e726"},
 ]
 
 [[package]]
@@ -733,13 +733,13 @@ files = [
 
 [[package]]
 name = "starlette"
-version = "0.41.2"
+version = "0.41.3"
 description = "The little ASGI library that shines."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "starlette-0.41.2-py3-none-any.whl", hash = "sha256:fbc189474b4731cf30fcef52f18a8d070e3f3b46c6a04c97579e85e6ffca942d"},
-    {file = "starlette-0.41.2.tar.gz", hash = "sha256:9834fd799d1a87fd346deb76158668cfa0b0d56f85caefe8268e2d97c3468b62"},
+    {file = "starlette-0.41.3-py3-none-any.whl", hash = "sha256:44cedb2b7c77a9de33a8b74b2b90e9f50d11fcf25d8270ea525ad71a25374ff7"},
+    {file = "starlette-0.41.3.tar.gz", hash = "sha256:0e4ab3d16522a255be6b28260b938eae2482f98ce5cc934cb08dce8dc3ba5835"},
 ]
 
 [package.dependencies]
@@ -750,13 +750,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "typer"
-version = "0.13.0"
+version = "0.13.1"
 description = "Typer, build great CLIs. Easy to code. Based on Python type hints."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typer-0.13.0-py3-none-any.whl", hash = "sha256:d85fe0b777b2517cc99c8055ed735452f2659cd45e451507c76f48ce5c1d00e2"},
-    {file = "typer-0.13.0.tar.gz", hash = "sha256:f1c7198347939361eec90139ffa0fd8b3df3a2259d5852a0f7400e476d95985c"},
+    {file = "typer-0.13.1-py3-none-any.whl", hash = "sha256:5b59580fd925e89463a29d363e0a43245ec02765bde9fb77d39e5d0f29dd7157"},
+    {file = "typer-0.13.1.tar.gz", hash = "sha256:9d444cb96cc268ce6f8b94e13b4335084cef4c079998a9f4851a90229a3bd25c"},
 ]
 
 [package.dependencies]
