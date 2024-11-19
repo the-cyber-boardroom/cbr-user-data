@@ -1,3 +1,4 @@
+from cbr_user_data.fast_api.routes.Routes__User__Notifications  import Routes__User__Notifications
 from osbot_fast_api.api.Fast_API                                import Fast_API
 from cbr_user_data.fast_api.routes.Routes__Info                 import Routes__Info
 from cbr_user_data.fast_api.routes.Routes__User                 import Routes__User
@@ -12,10 +13,11 @@ class User_Data__Fast_API(Fast_API):
     enable_cors: bool = True
 
     def setup_routes(self):
-        self.add_routes(Routes__Info              )
-        self.add_routes(Routes__User              )
-        self.add_routes(Routes__User__Chats       )
-        self.add_routes(Routes__User__File_To_LLMs)
-        self.add_routes(Routes__User__File_System )
-        self.add_routes(Routes__User__Session     )
-        self.add_routes(Routes__User__Personas    )
+        self.add_routes(Routes__Info               )
+        self.add_routes(Routes__User               )
+        self.add_routes(Routes__User__Chats        )
+        self.add_routes(Routes__User__File_To_LLMs )
+        self.add_routes(Routes__User__File_System  )
+        self.add_routes(Routes__User__Session      )
+        self.add_routes(Routes__User__Personas     )
+        self.add_routes(Routes__User__Notifications)
