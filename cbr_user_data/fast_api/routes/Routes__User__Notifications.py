@@ -9,6 +9,8 @@ from cbr_shared.cbr_backend.user_notifications.Model__User__Notification    impo
 from cbr_shared.cbr_backend.user_notifications.User__Notifications          import User__Notifications
 from cbr_shared.cbr_backend.users.decorators.with_db_user                   import with_db_user
 from osbot_fast_api.api.Fast_API_Routes                                     import Fast_API_Routes
+from osbot_utils.utils.Misc import wait_for
+
 
 class Routes__User__Notifications(Fast_API_Routes):
     tag: str = 'notifications'
@@ -30,25 +32,48 @@ class Routes__User__Notifications(Fast_API_Routes):
             return {"status": "ok", "message": "Notification deleted"}
         raise HTTPException(status_code=404, detail="Notification not found")
 
-    @with_db_user
-    async def generate_events(self, request: Request) -> AsyncGenerator[str, None]:
-        last_check = time.time()
-        while True:
+    # @with_db_user
+    # async def generate_events(self, request: Request) -> AsyncGenerator[str, None]:
+    #     last_check = time.time()
+    #     while True:
+    #         # Send heartbeat
+    #         yield f"event: heartbeat\ndata: {json.dumps({'timestamp': time.time()})}\n\n"
+    #
+    #         # Check for notifications
+    #         notifications = self.user_notifications(request).new(last_notification_timestamp=last_check)
+    #         if notifications:
+    #             yield f"event: notifications\ndata: {json.dumps([n.__dict__ for n in notifications])}\n\n"
+    #             self.user_notifications(request).mark_delivered([n.notification_id for n in notifications])
+    #
+    #         last_check = time.time()
+    #         await asyncio.sleep(1)
+    #
+    # @with_db_user
+    # async def live_stream(self, request: Request):
+    #     return StreamingResponse(self.generate_events(request), media_type="text/event-stream")
+
+
+    def generate_events(self, request: Request, wait_count=100, wait_time=1):
+        user_notifications = self.user_notifications(request)
+        last_check         = time.time()
+        while wait_count > 0:
             # Send heartbeat
-            yield f"event: heartbeat\ndata: {json.dumps({'timestamp': time.time()})}\n\n"
+            yield f"[{wait_count}] event: heartbeat\ndata: {json.dumps({'timestamp': time.time()})}\n\n"
 
             # Check for notifications
-            notifications = self.user_notifications(request).new(last_notification_timestamp=last_check)
+            notifications = user_notifications.new(last_notification_timestamp=last_check)
             if notifications:
-                yield f"event: notifications\ndata: {json.dumps([n.__dict__ for n in notifications])}\n\n"
-                self.user_notifications(request).mark_delivered([n.notification_id for n in notifications])
+                yield f"event: notifications\ndata: {[n.json() for n in notifications]}\n\n"
+                user_notifications.mark_delivered([n.notification_id for n in notifications])
 
             last_check = time.time()
-            await asyncio.sleep(1)
+            wait_for(wait_time)
+            wait_count -= 1
 
     @with_db_user
-    async def live_stream(self, request: Request):
-        return StreamingResponse(self.generate_events(request), media_type="text/event-stream")
+    def live_stream(self, request: Request, wait_count=50, wait_time=1):
+        return StreamingResponse(self.generate_events(request, int(wait_count), float(wait_time)), media_type="text/event-stream")
+
 
     @with_db_user
     def all(self, request: Request):
@@ -66,4 +91,6 @@ class Routes__User__Notifications(Fast_API_Routes):
         self.add_route_get   (self.live_stream)
         self.add_route_get   (self.current    )
         self.add_route_get   (self.all        )
-        return self
+
+
+

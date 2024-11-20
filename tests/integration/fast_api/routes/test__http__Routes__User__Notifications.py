@@ -161,6 +161,19 @@ class test__http__Routes__User__Notifications(TestCase):
         received_messages = {n.message for n in current_notifications.notifications}
         assert received_messages == set(messages)
 
+    def test__http__notifications__live_stream(self):
+        url     = self.fast_api_server.url() + 'notifications/live-stream?wait_count=2&wait_time=0.1'
+        cookies = {'CBR__SESSION_ID__ACTIVE': self.db_session.session_id}
+        response = requests.get(url, cookies=cookies, stream=True)
+        assert response.status_code == 200
+        print()
+        streamed_data = []
+        for chunk in response.iter_content(chunk_size=1024):  # Process in 1KB chunks
+            if chunk:  # Only process non-empty chunks
+                streamed_data.append(chunk)
+
+        assert len(streamed_data) == 2
+
     # @pytest.mark.skip("needs aiohttp")
     # def test__http__notifications__live_stream(self):
     #     import asyncio
@@ -187,5 +200,7 @@ class test__http__Routes__User__Notifications(TestCase):
     #     # Verify we received SSE data
     #     assert 'event: notifications' in stream_data
     #     assert message in stream_data
+
+
 
 
