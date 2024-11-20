@@ -1,6 +1,5 @@
 import json
 import time
-import asyncio
 from fastapi                                                                import HTTPException
 from starlette.requests                                                     import Request
 from starlette.responses                                                    import StreamingResponse
@@ -9,7 +8,8 @@ from cbr_shared.cbr_backend.user_notifications.Model__User__Notification    impo
 from cbr_shared.cbr_backend.user_notifications.User__Notifications          import User__Notifications
 from cbr_shared.cbr_backend.users.decorators.with_db_user                   import with_db_user
 from osbot_fast_api.api.Fast_API_Routes                                     import Fast_API_Routes
-from osbot_utils.utils.Misc import wait_for
+from osbot_utils.utils.Json                                                 import json_to_str
+from osbot_utils.utils.Misc                                                 import wait_for
 
 
 class Routes__User__Notifications(Fast_API_Routes):
@@ -57,14 +57,22 @@ class Routes__User__Notifications(Fast_API_Routes):
         user_notifications = self.user_notifications(request)
         last_check         = time.time()
         while wait_count > 0:
-            # Send heartbeat
-            yield f"[{wait_count}] event: heartbeat\ndata: {json.dumps({'timestamp': time.time()})}\n\n"
 
-            # Check for notifications
-            notifications = user_notifications.new(last_notification_timestamp=last_check)
+            event = {'count': wait_count,                                                           # Send heartbeat
+                     'event':'heartbeat',
+                     'data': {'timestamp': time.time()}}
+            yield json_to_str(event)
+
+            notifications     = user_notifications.new(last_notification_timestamp=last_check)      # Check for notifications
+            notifications_ids = []
             if notifications:
-                yield f"event: notifications\ndata: {[n.json() for n in notifications]}\n\n"
-                user_notifications.mark_delivered([n.notification_id for n in notifications])
+                for notification in notifications:
+                    notifications_ids.append(notification.notification_id)
+                    event = {'count' : wait_count,
+                             'event': 'notification',
+                             'data' : notification.json()}
+                    yield json_to_str(event)
+                user_notifications.mark_delivered(notifications_ids)
 
             last_check = time.time()
             wait_for(wait_time)

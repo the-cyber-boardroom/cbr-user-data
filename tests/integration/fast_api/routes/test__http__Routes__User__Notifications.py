@@ -8,7 +8,6 @@ from cbr_user_data.utils.Version                        import version__cbr_user
 from osbot_fast_api.utils.Fast_API_Server               import Fast_API_Server
 from osbot_fast_api.utils.Version                       import version__osbot_fast_api
 from osbot_utils.context_managers.print_duration        import print_duration
-from osbot_utils.utils.Dev import pprint
 from osbot_utils.utils.Objects                          import dict_to_obj, __
 from tests.integration.user_data__objs_for_tests        import user_data__assert_local_stack, fast_api__user_data__app, \
     fast_api__user_data

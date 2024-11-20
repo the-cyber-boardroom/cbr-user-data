@@ -1,7 +1,4 @@
-import json
 from unittest                                                               import TestCase
-
-import pytest
 from starlette.requests                                                     import Request
 from fastapi                                                                import HTTPException
 from cbr_shared.cbr_backend.user_notifications.Model__User__Notification    import Model__User__Notification
@@ -9,6 +6,7 @@ from cbr_shared.cbr_backend.user_notifications.User__Notifications          impo
 from cbr_shared.cbr_backend.users.Temp_User_Request                         import Temp_User_Request
 from cbr_shared.cbr_backend.users.decorators.with_db_user                   import with_db_user
 from cbr_user_data.fast_api.routes.Routes__User__Notifications              import Routes__User__Notifications
+from osbot_utils.utils.Json                                                 import str_to_json
 from osbot_utils.utils.Misc                                                 import random_text
 from osbot_utils.utils.Threads                                              import invoke_async
 from tests.integration.user_data__objs_for_tests                            import user_data__assert_local_stack
@@ -94,35 +92,59 @@ class test__int__Routes__User__Notifications(TestCase):
         assert len(result["notifications"]) == 2
         assert {n["message"] for n in result["notifications"]} == set(messages)
 
-    # todo: use osbot_utils async invoke methods
-    @pytest.mark.skip("fix to new non async mode")
+
     def test_live_stream(self):
-        # Helper to consume stream for testing
-        def get_next_event(stream):
-            for data in stream.body_iterator:
+        wait_count = 2                                                                          # Reduced count for testing
+        wait_time  = 0.1                                                                        # Faster wait time for testing
+        message    = random_text("stream-test")                                                 # Random message to send
+        response   = self.routes_user_notifications.create(self.request, message=message)       # Create a notification first
 
-                if "event: notifications" in data:
-                    return json.loads(data.split("data: ")[1])
-            return None
+        assert response.get('status') == 'ok'
 
-
-        message           = random_text("stream-test")                                            # Create a notification
-        response          = self.routes_user_notifications.create(self.request, message=message)
-        notification      = response.get('data').get('notification')
+        notification      = response.get('data').get('notification')                            # Get notification from response
         user_notification = Model__User__Notification.from_json(notification)
-        stream            = self.routes_user_notifications.live_stream(self.request)  # Start the stream
-        notifications     = get_next_event(stream)  # Get the first notification event
 
-        assert response.get('status')      == 'ok'
-        assert user_notification.message   == message                       # confirm message is correct
-        assert notifications               == [user_notification.json()]
-        assert notifications[0]["message"] == message                       # confirm message is correct
+        stream = self.routes_user_notifications.live_stream(self.request,                       # Start the stream with test parameters
+                                                          wait_count=wait_count,
+                                                          wait_time=wait_time)
 
-        # todo: find way to do this, since is a bit harder to test here, since the event loop that was executed in get_next_event(stream) is not running anymore
-        # Verify notifications are marked as delivered
-        #user_notifications = self.routes_user_notifications.user_notifications(self.request)
-        #all_notifications = user_notifications.all()
-        #assert all(n.user_delivered for n in all_notifications)
+        def get_notifications_from_stream():
+            notifications_received = []
+            async def process_stream():
+                async for data in stream.body_iterator:
+                    notifications_received.append(str_to_json(data))
+                return notifications_received
+            return invoke_async(process_stream())
+
+        events = get_notifications_from_stream()                                                # Get all events from stream
+
+        assert len(events) == 3                                                                 # Verify we got all expected events
+
+        heartbeat_1, notification_event, heartbeat_2 = events                                   # Unpack events for clarity
+
+        # Verify first heartbeat
+        assert heartbeat_1['event'] == 'heartbeat'
+        assert heartbeat_1['count'] == 2
+        assert isinstance(heartbeat_1['data']['timestamp'], float)
+
+        # Verify notification event
+        assert notification_event['event'] == 'notification'
+        assert notification_event['count'] == 2
+        assert notification_event['data']['message'] == message
+        assert notification_event['data']['notification_id'] == user_notification.notification_id
+        assert notification_event['data']['user_delivered'] is False
+        assert notification_event['data']['user_acknowledged'] is False
+
+        # Verify second heartbeat
+        assert heartbeat_2['event'] == 'heartbeat'
+        assert heartbeat_2['count'] == 1
+        assert isinstance(heartbeat_2['data']['timestamp'], float)
+
+        # Verify notification was marked as delivered after stream
+        current_notifications = self.routes_user_notifications.current(self.request)
+
+        assert len(current_notifications["notifications"]) == 1                                                 # Should be empty as notification was delivered
+        assert current_notifications["notifications"][0]["user_delivered"] is True
 
     def test_invalid_operations(self):
         with self.assertRaises(HTTPException) as context:                                                       # Delete non-existent notification

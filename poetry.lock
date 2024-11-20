@@ -85,13 +85,13 @@ osbot-markdown = "*"
 
 [[package]]
 name = "cbr-shared"
-version = "0.3.69"
+version = "0.3.70"
 description = "CBR - Shared"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_shared-0.3.69-py3-none-any.whl", hash = "sha256:db578993bc35698c916a961ebdeb8f1a7f1c84eefcaaa8b7070c8cce64f9faec"},
-    {file = "cbr_shared-0.3.69.tar.gz", hash = "sha256:3e92f5e36ebc7f9181e0bc786c31f56609ba751ae8df4cfe815c85c0eb4c7af9"},
+    {file = "cbr_shared-0.3.70-py3-none-any.whl", hash = "sha256:03b798c23765968ea7bdbf8ee9306625fcc07e6ff99c9e9e834ee99de24c5a5f"},
+    {file = "cbr_shared-0.3.70.tar.gz", hash = "sha256:88215280b9650a9f8b507078aaf992835b01a6b8523133f1b1b62dd0ea314276"},
 ]
 
 [package.dependencies]
