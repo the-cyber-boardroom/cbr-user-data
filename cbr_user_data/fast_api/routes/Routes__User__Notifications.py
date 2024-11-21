@@ -12,7 +12,9 @@ from osbot_utils.utils.Json                                                 impo
 from osbot_utils.utils.Misc                                                 import wait_for
 
 
-
+from fastapi import WebSocket, WebSocketDisconnect
+from starlette.websockets import WebSocketState
+import asyncio
 
 class Routes__User__Notifications(Fast_API_Routes):
     tag               : str                 = 'notifications'
@@ -116,6 +118,25 @@ class Routes__User__Notifications(Fast_API_Routes):
         notifications = self.user_notifications(request).current().notifications
         return {"notifications": [n.__dict__ for n in notifications]}
 
+
+
+    async def websocket_heartbeat(self, websocket: WebSocket, wait_time: float = 5.0):
+        await websocket.accept()
+        try:
+            while websocket.client_state != WebSocketState.DISCONNECTED:
+                heartbeat = { 'event': 'heartbeat', 'data': {'timestamp': time.time()} }
+                await websocket.send_text(json_to_str(heartbeat))
+
+                await asyncio.sleep(wait_time)
+        except Exception as error:
+            print(f"Error closing WebSocket connection: {error}")
+        finally:
+            if websocket.client_state != WebSocketState.DISCONNECTED:
+                try:
+                    await websocket.close()
+                except Exception as error_in_close:
+                    print(f"Error closing WebSocket connection: {error_in_close}")
+
     def setup_routes(self):
         self.add_route_post  (self.create              )
         self.add_route_delete(self.delete              )
@@ -126,6 +147,5 @@ class Routes__User__Notifications(Fast_API_Routes):
         self.add_route_get   (self.generators__stop_all)
         self.add_route_get   (self.generators__status  )
 
-
-
+        self.router.websocket("/ws")(self.websocket_heartbeat)
 
