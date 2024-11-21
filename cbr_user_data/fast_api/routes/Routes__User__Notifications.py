@@ -10,10 +10,8 @@ from osbot_utils.helpers.generators.Generator_Manager                       impo
 from osbot_utils.helpers.generators.Model__Generator_State                  import Model__Generator_State
 from osbot_utils.utils.Json                                                 import json_to_str
 from osbot_utils.utils.Misc                                                 import wait_for
-
-
-from fastapi import WebSocket, WebSocketDisconnect
-from starlette.websockets import WebSocketState
+from fastapi                                                                import WebSocket
+from starlette.websockets                                                   import WebSocketState
 import asyncio
 
 class Routes__User__Notifications(Fast_API_Routes):
