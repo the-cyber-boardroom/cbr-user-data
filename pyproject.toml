@@ -15,7 +15,7 @@ osbot-aws       = "*"
 osbot-fast-api  = "*"
 mangum          = "*"
 httpx           = "*"
-uvicorn         = {extras = ["standard"], version = "v0.2.31"}
+uvicorn         = {extras = ["standard"], version = "*"}
 
 
 
