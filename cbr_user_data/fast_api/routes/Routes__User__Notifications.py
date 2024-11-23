@@ -1,18 +1,9 @@
-import time
-from fastapi                                                                import HTTPException, BackgroundTasks
-from starlette.requests                                                     import Request
-from starlette.responses                                                    import StreamingResponse
-from cbr_shared.cbr_backend.user_notifications.Model__User__Notification    import Model__User__Notification
+from fastapi                                                                import WebSocket, Request
 from cbr_shared.cbr_backend.user_notifications.User__Notifications          import User__Notifications
 from cbr_shared.cbr_backend.users.decorators.with_db_user                   import with_db_user
 from osbot_fast_api.api.Fast_API_Routes                                     import Fast_API_Routes
 from osbot_utils.helpers.generators.Generator_Manager                       import Generator_Manager
 from osbot_utils.helpers.generators.Model__Generator_State                  import Model__Generator_State
-from osbot_utils.utils.Json                                                 import json_to_str
-from osbot_utils.utils.Misc                                                 import wait_for
-from fastapi                                                                import WebSocket
-from starlette.websockets                                                   import WebSocketState
-import asyncio
 
 class Routes__User__Notifications(Fast_API_Routes):
     tag               : str                 = 'notifications'
@@ -35,6 +26,9 @@ class Routes__User__Notifications(Fast_API_Routes):
 
     @with_db_user
     def create(self, request: Request, message: str):
+        from fastapi                                                             import HTTPException
+        from cbr_shared.cbr_backend.user_notifications.Model__User__Notification import Model__User__Notification
+
         notification = Model__User__Notification(message=message)
         if self.user_notifications(request).add(notification):
             return {"status": "ok", "message": "Notification created", 'data':{"notification": notification.json()}}
@@ -42,11 +36,15 @@ class Routes__User__Notifications(Fast_API_Routes):
 
     @with_db_user
     def delete(self, request: Request, notification_id: str):
+        from fastapi import HTTPException
         if self.user_notifications(request).delete(notification_id):
             return {"status": "ok", "message": "Notification deleted"}
         raise HTTPException(status_code=404, detail="Notification not found")
 
     def generate_events(self, request: Request, wait_count=100, wait_time=1, get_generator=None):
+        import time
+        from osbot_utils.utils.Json import json_to_str
+        from osbot_utils.utils.Misc import wait_for
 
         user_notifications = self.user_notifications(request)
         last_check         = time.time()
@@ -92,6 +90,7 @@ class Routes__User__Notifications(Fast_API_Routes):
 
     @with_db_user
     def live_stream(self, request: Request, wait_count=50, wait_time=1):
+        from starlette.responses import StreamingResponse
 
         def get_generator():
             nonlocal target_id
@@ -119,6 +118,11 @@ class Routes__User__Notifications(Fast_API_Routes):
 
 
     async def websocket_heartbeat(self, websocket: WebSocket, wait_time: float = 5.0):
+        import time
+        import asyncio
+        from osbot_utils.utils.Json import json_to_str
+        from starlette.websockets   import WebSocketState
+
         await websocket.accept()
         try:
             while websocket.client_state != WebSocketState.DISCONNECTED:

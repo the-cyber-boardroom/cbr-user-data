@@ -12,7 +12,6 @@ from osbot_utils.utils.Objects                          import dict_to_obj, __
 from tests.integration.user_data__objs_for_tests        import user_data__assert_local_stack, fast_api__user_data__app, \
     fast_api__user_data
 
-
 class test__http__Routes__User__Notifications(TestCase):
 
     @classmethod

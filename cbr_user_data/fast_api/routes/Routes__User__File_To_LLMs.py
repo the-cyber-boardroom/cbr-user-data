@@ -1,23 +1,23 @@
 from starlette.requests                                     import Request
-from cbr_shared.cbr_backend.files.User__File__System        import User__File__System
 from cbr_shared.cbr_backend.llms.LLM__Content__Actions      import LLM__Content__Actions
 from cbr_shared.cbr_backend.users.decorators.with_db_user   import with_db_user
 from osbot_fast_api.api.Fast_API_Routes                     import Fast_API_Routes
-from osbot_utils.utils.Files                                import file_extension
-from osbot_utils.utils.Json                                 import json_loads
-from osbot_utils.utils.Status                               import status_ok, status_error
-
 
 class Routes__User__File_To_LLMs(Fast_API_Routes):
     tag                 : str                    = 'file-to-llms'
     llm_content_actions : LLM__Content__Actions
 
     def file_system(self, request: Request):
+        from cbr_shared.cbr_backend.files.User__File__System import User__File__System
+
         db_user = request.state.db_user
         return User__File__System(db_user=db_user).setup()
 
     @with_db_user
     def file_summary(self, request: Request, file_id: str, re_create:bool=False):
+        from osbot_utils.utils.Files  import file_extension
+        from osbot_utils.utils.Status import status_ok
+
         file_system   = self.file_system(request)
         user_file     = file_system.file(file_id)
 
@@ -35,6 +35,10 @@ class Routes__User__File_To_LLMs(Fast_API_Routes):
 
     @with_db_user
     def folder_summary(self, request: Request, folder_id: str, re_create: bool = False):            # todo: refactor out this code from here
+        from osbot_utils.utils.Status import status_ok, status_error
+
+        from osbot_utils.utils.Json import json_loads
+
         file_system    = self.file_system(request)
 
         folder_summary = file_system.folder_summary(folder_id=folder_id)
