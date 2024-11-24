@@ -16,7 +16,8 @@ osbot-aws       = "*"
 osbot-fast-api  = "*"
 mangum          = "*"
 httpx           = "*"
-uvicorn         = {extras = ["standard"]}
+uvicorn         = "*"
+websockets      = "*"
 
 
 
