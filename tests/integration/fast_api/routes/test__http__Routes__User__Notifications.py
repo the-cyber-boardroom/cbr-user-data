@@ -1,4 +1,3 @@
-import pytest
 import requests
 from unittest                                           import TestCase
 from fastapi                                            import FastAPI
@@ -7,27 +6,24 @@ from cbr_user_data.fast_api.User_Data__Fast_API         import User_Data__Fast_A
 from cbr_user_data.utils.Version                        import version__cbr_user_data
 from osbot_fast_api.utils.Fast_API_Server               import Fast_API_Server
 from osbot_fast_api.utils.Version                       import version__osbot_fast_api
-from osbot_utils.context_managers.print_duration        import print_duration
 from osbot_utils.utils.Objects                          import dict_to_obj, __
-from tests.integration.user_data__objs_for_tests        import user_data__assert_local_stack, fast_api__user_data__app, \
-    fast_api__user_data
+from tests.integration.user_data__objs_for_tests        import user_data__assert_local_stack, fast_api__user_data__app, fast_api__user_data
 
 class test__http__Routes__User__Notifications(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        with print_duration(action_name='setUpClass'):
-            user_data__assert_local_stack()
-            cls.fast_api__user_data = fast_api__user_data
-            cls.fast_api_server     = Fast_API_Server(app=fast_api__user_data__app)
-            cls.fast_api_server.start()
+        user_data__assert_local_stack()
+        cls.fast_api__user_data = fast_api__user_data
+        cls.fast_api_server     = Fast_API_Server(app=fast_api__user_data__app)
+        cls.fast_api_server.start()
 
-            cls.temp_user_request = Temp_User_Request().create()
-            cls.temp_user         = cls.temp_user_request.temp_user
-            cls.db_session        = cls.temp_user_request.temp_db_session
-            cls.request           = cls.temp_user_request.request
+        cls.temp_user_request = Temp_User_Request().create()
+        cls.temp_user         = cls.temp_user_request.temp_user
+        cls.db_session        = cls.temp_user_request.temp_db_session
+        cls.request           = cls.temp_user_request.request
 
-            assert cls.fast_api_server.is_port_open() is True
+        assert cls.fast_api_server.is_port_open() is True
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -38,11 +34,10 @@ class test__http__Routes__User__Notifications(TestCase):
         assert cls.db_session     .exists      () is False
 
     def setUp(self):
-        with print_duration(action_name='setUp'):
-            all_notifications = self.request_with_user__get('notifications/all')                                # Clean up notifications before each test
-            for notification in all_notifications.notifications:
-                delete_path = f'notifications/delete?notification_id={notification.notification_id}'
-                self.request_with_user__delete(delete_path)
+        all_notifications = self.request_with_user__get('notifications/all')                                # Clean up notifications before each test
+        for notification in all_notifications.notifications:
+            delete_path = f'notifications/delete?notification_id={notification.notification_id}'
+            self.request_with_user__delete(delete_path)
 
     def test__setUpClass(self):
         assert type(fast_api__user_data     )     is User_Data__Fast_API

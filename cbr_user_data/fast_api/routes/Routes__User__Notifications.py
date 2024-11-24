@@ -83,7 +83,6 @@ class Routes__User__Notifications(Fast_API_Routes):
                 wait_for(wait_time)
                 wait_count -= 1
         finally:
-            print('>>> completed')
             generator.state = Model__Generator_State.COMPLETED
 
 

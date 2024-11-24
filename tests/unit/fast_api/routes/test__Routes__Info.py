@@ -1,6 +1,6 @@
 from unittest                                   import TestCase
 from cbr_user_data.fast_api.routes.Routes__Info import Routes__Info
-from cbr_user_data.utils.Version import version__cbr_user_data
+from cbr_user_data.utils.Version                import version__cbr_user_data
 
 
 class test_Routes_Info(TestCase):
