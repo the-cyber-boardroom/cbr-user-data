@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "cbr_user_data"
-version     = "v0.2.32"
+version     = "v0.2.33"
 description = "CBR - User Data"
 authors     = ["Dinis Cruz <dinis.cruz@owasp.org>"]
 license     = "MIT"
@@ -16,7 +16,7 @@ osbot-aws       = "*"
 osbot-fast-api  = "*"
 mangum          = "*"
 httpx           = "*"
-uvicorn         = {extras = ["standard"], version = "*"}
+uvicorn         = {extras = ["standard"], version = "v0.2.33"}
 
 
 
