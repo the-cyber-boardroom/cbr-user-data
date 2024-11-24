@@ -71,13 +71,13 @@ crt = ["awscrt (==0.22.0)"]
 
 [[package]]
 name = "cbr-content"
-version = "0.9.72"
+version = "0.9.73"
 description = "CBR - Content"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "cbr_content-0.9.72-py3-none-any.whl", hash = "sha256:4543d4254015de146cb738570c7630f6cf5e5a2b6a57dabfa0025e986bbad0af"},
-    {file = "cbr_content-0.9.72.tar.gz", hash = "sha256:0a6699626b90d420f0a2b13661635193e3a004ef5d3188f8865e5e4556530d6c"},
+    {file = "cbr_content-0.9.73-py3-none-any.whl", hash = "sha256:c2d006e1a582fb5ec28b079a0876920cf411077341097f1254dc205945526e85"},
+    {file = "cbr_content-0.9.73.tar.gz", hash = "sha256:dffccb30044d671628f5fb54efa222f708166cda35fb66356a18be95e4f2f37d"},
 ]
 
 [package.dependencies]
@@ -507,13 +507,13 @@ uvicorn = "*"
 
 [[package]]
 name = "osbot-local-stack"
-version = "0.3.0"
+version = "0.4.0"
 description = "OWASP Security Bot - LLM"
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "osbot_local_stack-0.3.0-py3-none-any.whl", hash = "sha256:609217b3a9e371700af5b97d68e2087783f6471717b26fb152e1898040c9ed93"},
-    {file = "osbot_local_stack-0.3.0.tar.gz", hash = "sha256:956fd1e8f2e80301ef29721d654830e98020919c7ce64c744907e647770d6c60"},
+    {file = "osbot_local_stack-0.4.0-py3-none-any.whl", hash = "sha256:44ea630f9598de11b278dceff055417fd17b3415b123e8e6d39bce816813c077"},
+    {file = "osbot_local_stack-0.4.0.tar.gz", hash = "sha256:c430d80431dc351289b2470e2239813997f9c555f4a15855730c888a8b6015d7"},
 ]
 
 [package.dependencies]
@@ -536,13 +536,13 @@ osbot-utils = "*"
 
 [[package]]
 name = "osbot-utils"
-version = "1.82.0"
+version = "1.84.0"
 description = "OWASP Security Bot - Utils"
 optional = false
 python-versions = "<4.0,>=3.7"
 files = [
-    {file = "osbot_utils-1.82.0-py3-none-any.whl", hash = "sha256:35f5de562f5831822cbba56a3146d883a05e696e0393ae34011a9dc10f4567eb"},
-    {file = "osbot_utils-1.82.0.tar.gz", hash = "sha256:be2cc529934981196b0677fd415ed703947799fb92541f8833aa002a354aee10"},
+    {file = "osbot_utils-1.84.0-py3-none-any.whl", hash = "sha256:66beac6eeb94a45bf4f8acc401de38aa6a7e420e83994ea59dfcd59ae1897886"},
+    {file = "osbot_utils-1.84.0.tar.gz", hash = "sha256:97f74c77c1160172a0a6d9621ef56db967b5c24f2c1e9b785faff2d5bc923191"},
 ]
 
 [[package]]
@@ -1184,4 +1184,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c301db88881965c20e2a60bbce5f30d4458ac7e08c409979ee003a83f3240fed"
+content-hash = "b62b9a5cb05e191ce50896b8149b55e78a15f8414aa6ea7d882ef2a7aaa2d557"
