@@ -1,7 +1,7 @@
 from mangum                                         import Mangum
-from cbr_user_data.fast_api.Fast_API__User_Data     import Fast_API__User_Data
+from cbr_user_data.fast_api.User_Data__Fast_API     import User_Data__Fast_API
 
-fast_api_user_data = Fast_API__User_Data().setup()
+fast_api_user_data = User_Data__Fast_API().setup()
 app                = fast_api_user_data.app()
 run                = Mangum(app)
 
