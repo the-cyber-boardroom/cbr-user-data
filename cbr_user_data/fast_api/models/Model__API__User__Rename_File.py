@@ -1,6 +1,6 @@
 from fastapi                            import Body
 from dataclasses                        import dataclass
-from osbot_utils.base_classes.Type_Safe import Type_Safe
+from osbot_utils.type_safe.Type_Safe       import Type_Safe
 
 SWAGGER_EXAMPLE__Model__API__User__Rename_File  = Body(..., example=dict(file_id       = ''                ,
                                                                                   new_file_name = 'new-file-name.md'))

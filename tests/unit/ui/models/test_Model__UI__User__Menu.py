@@ -1,6 +1,7 @@
 from unittest                                           import TestCase
 from cbr_user_data.ui.models.Model__UI__User__Menu      import Model__UI__User__Menu
 from cbr_user_data.ui.models.Model__UI__User__Menu_Item import Model__UI__User__Menu_Item
+from osbot_utils.helpers.Safe_Id import Safe_Id
 from osbot_utils.utils.Objects                          import __
 
 
@@ -14,7 +15,7 @@ class test_Model__UI__User__Menu(TestCase):
 
     def test__add_menu_item__empty(self):
         menu_item                              = Model__UI__User__Menu_Item()
-        self.user_menu.menu_items['menu_item'] = menu_item
+        self.user_menu.menu_items[Safe_Id('menu_item')] = menu_item
 
         assert self.user_menu.obj () == __(menu_items=__(menu_item=__(icon='', label='', web_component='', web_component_path= '',  path='')))
         assert self.user_menu.json() == {'menu_items': {'menu_item': {'icon': '', 'label': '', 'path': '', 'web_component': '', 'web_component_path': ''}}}
@@ -25,8 +26,8 @@ class test_Model__UI__User__Menu(TestCase):
                                                         web_component      = 'an web_component'     ,
                                                         web_component_path = 'an web_component_path',
                                                         path               = 'an path'              )
-        menu_item                              = Model__UI__User__Menu_Item(**kwargs)
-        self.user_menu.menu_items['menu_item'] = menu_item
+        menu_item                              = Model__UI__User__Menu_Item.from_json(kwargs)
+        self.user_menu.menu_items[Safe_Id('menu_item')] = menu_item
 
         assert self.user_menu.obj () == __(menu_items=__(menu_item=__(icon               = 'an icon'              ,
                                                                       label              = 'an label'             ,

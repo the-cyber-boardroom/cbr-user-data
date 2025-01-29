@@ -1,6 +1,6 @@
 from fastapi                            import Body
 from dataclasses                        import dataclass
-from osbot_utils.base_classes.Type_Safe import Type_Safe
+from osbot_utils.type_safe.Type_Safe       import Type_Safe
 
 SWAGGER_EXAMPLE__Model__API__User__Update_File  = Body(..., example=dict( file_bytes__base64 = b'new file contents',
                                                                                   file_id  = ''                            ))

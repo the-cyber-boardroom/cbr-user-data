@@ -1,5 +1,5 @@
 from cbr_user_data.ui.models.Model__UI__User__Menu  import Model__UI__User__Menu
-from osbot_utils.base_classes.Type_Safe             import Type_Safe
+from osbot_utils.type_safe.Type_Safe                   import Type_Safe
 from osbot_utils.decorators.methods.cache_on_self   import cache_on_self
 
 FILE__CBR__USER__SITE_MENU_CONFIG = 'en/site/left-menu.toml'
